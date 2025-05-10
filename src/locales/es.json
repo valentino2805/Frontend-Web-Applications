@@ -1,0 +1,33 @@
+{
+  "toolbar": {
+    "home": "Inicio",
+    "findDesigner": "Buscar Diseñador",
+    "payments": "Pagos",
+    "qualifications": "Calificaciones",
+    "message": "Mensaje",
+    "portfolio": "Portafolio"
+  },
+  "profile": {
+    "editProfile": "Editar Perfil",
+    "message": "Mensaje",
+    "follow": "Seguir",
+    "socialMedia": "Redes Sociales",
+    "close": "X",
+    "aboutMe": "Sobre mí",
+    "portfolio": "Portafolio",
+    "name": "Nombre:",
+    "location": "Ubicación:",
+    "bio": "Bio:",
+    "experience": "Experiencia (una por línea):",
+    "instagram": "Instagram:",
+    "facebook": "Facebook:",
+    "x": "X:",
+    "save": "Guardar"
+  },
+
+  "home": {
+    "welcome": "Bienvenido a CreatiLink",
+    "to": "A ------"
+  }
+}
+
