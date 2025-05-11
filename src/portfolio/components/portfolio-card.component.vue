@@ -9,12 +9,12 @@
       <!-- Parte trasera -->
       <div class="flip-card-back" @click="flipCard">
         <h4>{{ project.title }}</h4>
-        <p>{{ project.description || 'Proyecto creativo y profesional.' }}</p>
+        <p>{{ project.description || $t('portfolio.defaultDescription') }}</p>
         <div class="card-stats">
           <span>❤️ {{ project.likes }}</span>
           <span>💬 {{ project.comments }}</span>
         </div>
-        <button class="edit-btn" @click.stop="openModal">✏️ Editar</button>
+        <button class="edit-btn" @click.stop="openModal">{{ $t('portfolio.edit') }}</button>
       </div>
     </div>
   </div>
@@ -22,11 +22,11 @@
   <!-- Modal -->
   <div class="modal-backdrop" v-if="showModal">
     <div class="modal">
-      <label>Título:
+      <label>{{ $t('portfolio.title') }}:
         <input v-model="editedProject.title" />
       </label>
 
-      <label>Descripción:
+      <label>{{ $t('portfolio.description') }}:
         <textarea v-model="editedProject.description" />
       </label>
 
@@ -42,8 +42,8 @@
       </label>
 
       <div class="modal-actions">
-        <button @click="savePortfolioChanges">Guardar</button>
-        <button @click="showModal = false">Cancelar</button>
+        <button @click="savePortfolioChanges">{{ $t('portfolio.save') }}</button>
+        <button @click="showModal = false">{{ $t('portfolio.cancel') }}</button>
       </div>
     </div>
   </div>
