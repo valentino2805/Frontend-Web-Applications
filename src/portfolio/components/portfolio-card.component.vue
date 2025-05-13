@@ -14,12 +14,15 @@
           <span>❤️ {{ project.likes }}</span>
           <span>💬 {{ project.comments }}</span>
         </div>
-        <button class="edit-btn" @click.stop="openModal">{{ $t('portfolio.edit') }}</button>
+        <div class="card-actions">
+          <button class="edit-btn" @click.stop="openModal">{{ $t('portfolio.edit') }}</button>
+          <button class="info-btn" @click.stop="openMoreInfo">{{ $t('portfolio.moreInfo') }}</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal -->
+  <!-- MODAL DE EDICIÓN -->
   <div class="modal-backdrop" v-if="showModal">
     <div class="modal">
       <label>{{ $t('portfolio.title') }}:
@@ -33,7 +36,6 @@
       <label>
         <div class="image-upload-container">
           <img :src="editedProject.image" class="preview" alt="preview" />
-          <!-- Ícono de cámara para subir imagen -->
           <label class="camera-icon">
             <i class="fas fa-camera"></i>
             <input type="file" accept="image/*" @change="onImageUpload" class="upload-input-hidden" />
@@ -47,6 +49,28 @@
       </div>
     </div>
   </div>
+
+  <!-- MODAL DE INFORMACIÓN -->
+  <div class="modal-backdrop" v-if="showInfoModal">
+    <div class="modal">
+      <h2>{{ project.title }}</h2>
+      <img :src="project.image" alt="Preview" class="preview" />
+      <p>{{ project.description || $t('portfolio.defaultDescription') }}</p>
+
+      <div v-if="project.technologies && project.technologies.length" class="tech-list">
+        <h4>{{ $t('portfolio.technologiesUsed') }}</h4>
+        <ul>
+          <li v-for="(tech, index) in project.technologies" :key="index"> {{ tech }}</li>
+        </ul>
+      </div>
+
+
+
+      <div class="modal-actions">
+        <button @click="showInfoModal = false">{{ $t('portfolio.close') }}</button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -57,6 +81,7 @@ const emit = defineEmits(['update-project'])
 
 const showBack = ref(false)
 const showModal = ref(false)
+const showInfoModal = ref(false)
 const editedProject = ref({ ...props.project })
 
 const flipCard = () => {
@@ -71,6 +96,10 @@ const openModal = () => {
 const savePortfolioChanges = () => {
   emit('update-project', editedProject.value)
   showModal.value = false
+}
+
+const openMoreInfo = () => {
+  showInfoModal.value = true
 }
 
 const onImageUpload = (event) => {
@@ -88,6 +117,20 @@ const onImageUpload = (event) => {
 
 
 <style scoped>
+
+.tech-list {
+  margin-top: 12px;
+}
+
+.tech-list ul {
+  padding-left: 20px;
+  list-style: none;
+}
+
+.tech-list li::before {
+  content: '🔧 ';
+}
+
 .flip-card {
   width: 100%;
   height: 360px; /* más alto */
@@ -159,6 +202,19 @@ const onImageUpload = (event) => {
   cursor: pointer;
 }
 
+.info-btn {
+  padding: 6px 10px;
+  background: #00A295;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.info-btn {
+  background-color: #6c757d;
+  color: white;
+}
+
 /* MODAL */
 .modal-backdrop {
   position: fixed; /* ⬅️ Esto es clave para cubrir todo */
@@ -197,7 +253,12 @@ const onImageUpload = (event) => {
 }
 
 
-
+.card-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px; /* Aumenta el espacio entre botones */
+  margin-top: 12px;
+}
 .modal-actions {
   display: flex;
   justify-content: space-between;
@@ -232,5 +293,6 @@ const onImageUpload = (event) => {
 .upload-input-hidden {
   display: none;
 }
+
 
 </style>

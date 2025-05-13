@@ -27,12 +27,14 @@
 
   "home": {
     "welcome": "Bienvenido a CreatiLink",
-    "to": "A ------"
+    "to": "A ------",
+    "start": "Comenzar"
   },
 
   "portfolio": {
     "defaultDescription": "Proyecto creativo y profesional.",
     "edit": "✏️ Editar",
+    "moreInfo": "Más información",
     "title": "Título",
     "description": "Descripción",
     "save": "Guardar",
@@ -44,7 +46,9 @@
     "deleteProjects": "Borrar proyecto",
     "deleteConfirmationMessage": "¿Estás seguro de que quieres eliminar este proyecto?",
     "confirmDelete": "Confirmar eliminación",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "technologiesUsed": "Tecnologías utilizadas",
+    "close":"Cerrar"
   }
 }
 
