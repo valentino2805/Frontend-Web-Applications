@@ -7,7 +7,8 @@ export class Project {
                     image,
                     likes = '0',
                     comments = '0',
-                    description = ''
+                    description = '',
+                    technologies = [] // <- Se agrega aquí
                 }) {
         this.id = id
         this.title = title
@@ -16,5 +17,6 @@ export class Project {
         this.likes = likes
         this.comments = comments
         this.description = description
+        this.technologies = technologies // <- Y se asigna aquí
     }
 }

@@ -374,14 +374,23 @@ const goToPortfolio = () => {
 .body {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap; /* Para que se adapte a pantallas pequeñas */
   padding: 2rem;
   gap: 2rem;
   color: #000;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden; /* Prevenir el desbordamiento */
 }
 
 .left-section {
-  flex: 2;
+  flex: 1 1 60%; /* Que ocupe el 60% y se reduzca si es necesario */
+  min-width: 300px;
+  box-sizing: border-box;
 }
+
+
+
 
 .nav-buttons {
   display: flex;
@@ -398,11 +407,11 @@ const goToPortfolio = () => {
   font-weight: 500;
 }
 
-.right-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+@media (max-width: 768px) {
+  .left-section,
+  .right-section {
+    flex: 1 1 100%; /* Ocupan todo el ancho en pantallas pequeñas */
+  }
 }
 
 .profile-img {
@@ -410,6 +419,7 @@ const goToPortfolio = () => {
   max-width: 300px;
   border-radius: 8px;
   object-fit: cover;
+  box-sizing: border-box;
 }
 
 /* --- MODAL SOCIAL MEDIA --- */

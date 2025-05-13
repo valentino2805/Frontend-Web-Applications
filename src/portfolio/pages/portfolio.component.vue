@@ -1,5 +1,8 @@
 <template>
   <div class="portfolio-wrapper">
+
+
+
     <!-- Contenedor para los botones alineados a la izquierda -->
     <div class="buttons-container-left">
       <button class="add-btn" @click="showAddModal = true"> {{ $t('portfolio.addProject') }}</button>
@@ -27,6 +30,11 @@
         <label>{{ $t('portfolio.description') }}:
           <textarea v-model="newProject.description"></textarea>
         </label>
+
+        <label>{{ $t('portfolio.technologies') }}:
+          <input v-model="newProject.technologies" type="text" placeholder="Ej: Photoshop, Ilustración digital" />
+        </label>
+
 
         <label>{{ $t('portfolio.uploadImage') }}:
           <div class="image-upload">
@@ -107,10 +115,13 @@ import { getProjects } from '../services/portfolio.service.js'
 
 const projects = ref([])
 const showAddModal = ref(false)
-const newProject = ref({ title: '', description: '', image: '' })
+const newProject = ref({ title: '', description: '', image: '', technologies: [] })
 const showDeleteModalFlag = ref(false)
 const showConfirmDeleteModalFlag = ref(false)
 const projectToDelete = ref(null)
+
+
+
 
 onMounted(async () => {
   projects.value = await getProjects()
@@ -128,6 +139,7 @@ const updateProject = async (updatedProject) => {
     console.error('Error al guardar cambios:', error)
   }
 }
+
 
 // Abrir el modal para eliminar proyectos
 const showDeleteModal = () => {
@@ -192,14 +204,19 @@ const saveNewProject = async () => {
 
     const randomLikes = Math.floor(Math.random() * 90000 + 1000)
     const randomComments = Math.floor(Math.random() * 15000 + 100)
-
+    const techArray = newProject.value.technologies
+        .split(',')
+        .map(tech => tech.trim())
+        .filter(tech => tech.length > 0)
     const projectToAdd = {
       id: newId,
       title: newProject.value.title,
       description: newProject.value.description,
       image: newProject.value.image,
       likes: randomLikes,
-      comments: randomComments
+      comments: randomComments,
+      technologies: techArray
+
     }
 
     profile.projects.push(projectToAdd)
@@ -212,31 +229,60 @@ const saveNewProject = async () => {
     console.error('Error al añadir proyecto:', error)
   }
 }
+
+
+
+
 </script>
 
 
 
 <style scoped>
+
+
 .portfolio-wrapper {
   padding: 40px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative; /* Asegurar que los botones estén sobre las tarjetas */
+  position: relative;
+  box-sizing: border-box;
+  overflow-x: hidden;
+
+  /* Añade estos dos estilos */
+  background-color: #ffffff; /* Fondo blanco */
+  color: #000000; /* Texto negro */
 }
 
 
-
-/* Para que las tarjetas del portafolio no se solapen */
+/* Cuadrícula de portafolio con ajuste dinámico de columnas */
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Usamos auto-fit para un ajuste mejor */
   gap: 24px;
   width: 100%;
-  max-width: 1400px;
   box-sizing: border-box;
-  margin-top: 60px; /* Deja espacio para los botones */
+  margin-top: 60px;
+  padding: 0 20px; /* Asegura que no haya espacio extra en los lados */
+  justify-items: center; /* Centra las tarjetas dentro de sus celdas */
+
 }
+
+
+/* Media queries para pantallas pequeñas */
+@media (max-width: 768px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr; /* En pantallas pequeñas, 1 columna */
+    gap: 16px; /* Reduce el espacio entre las tarjetas */
+  }
+}
+
+@media (max-width: 480px) {
+  .portfolio-wrapper {
+    padding: 20px 10px; /* Reduce el padding en pantallas más pequeñas */
+  }
+}
+
 
 /* Modal básico */
 .modal-backdrop {
@@ -258,6 +304,7 @@ const saveNewProject = async () => {
   border-radius: 12px;
   max-width: 500px;
   width: 100%;
+
 }
 
 .upload-label {
@@ -267,6 +314,8 @@ const saveNewProject = async () => {
   gap: 8px;
   margin-top: 12px;
 }
+
+
 
 
 
