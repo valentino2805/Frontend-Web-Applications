@@ -58,7 +58,25 @@
     "viewPayments": "View my Payments",
     "viewReviews": "View my Reviews",
     "viewChats": "View my Chats"
+  },
+  "payments": {
+  "title": "Payments",
+  "project": "Project",
+  "amount": "Amount",
+  "date": "Date",
+  "paidTo": "Paid to",
+  "paidBy": "Paid by",
+  "reload": "Reload Balance",
+  "methods": {
+    "title": "Choose Payment Method",
+    "plin": "Plin",
+    "yape": "Yape",
+    "cash": "Cash",
+    "visa": "Visa",
+    "mastercard": "Mastercard",
+    "paypal": "PayPal",
+    "applepay": "Apple Pay",
+    "googlepay": "Google Pay"
   }
-
-
+  }
 }
