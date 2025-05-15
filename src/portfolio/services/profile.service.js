@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Profile } from '../model/Profile.entity';
+import { Profile } from '../model/profile.entity';
 
 const API_URL = 'http://localhost:3000/profile';
 
