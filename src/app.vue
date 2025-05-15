@@ -50,7 +50,12 @@ export default {
       </template>
 
       <template #end>
-        <pv-button class="toolbar-icon" id="user-icon"><i class="pi pi-user"></i></pv-button>
+        <router-link to="/login" custom v-slot="{ navigate, href }">
+          <pv-button class="toolbar-icon" id="user-icon" :href="href" @click="navigate">
+            <i class="pi pi-user"></i>
+          </pv-button>
+        </router-link>
+
         <language-switcher class="language-switcher" />
       </template>
     </pv-toolbar>
@@ -160,6 +165,10 @@ export default {
 /*toolbar end*/
 .toolbar-icon{
   margin-right: 1rem;
+}
+
+#user-icon{
+  color: white;
 }
 
 </style>

@@ -6,6 +6,9 @@ import CategoryManagementComponent from "../publishing/pages/category-management
 import ProfilePage from "../portfolio/pages/profile-page.component.vue";
 import Portfolio from '../portfolio/pages/portfolio.component.vue'
 import Dashboard from "../public/pages/dashboard.component.vue";
+import LoginPage from "../users/pages/login-page.vue";
+import RegisterPage from "../users/pages/register-page.vue";
+
 
 const router = createRouter({
     history: createWebHistory(),
@@ -15,7 +18,9 @@ const router = createRouter({
         { path: '/about',    name: 'about',    component: AboutComponent,    meta: { title: 'About us' } },
         { path: '/profile',  name: 'profile',  component: ProfilePage,       meta: { title: 'Profile' } },
         { path: '/portfolio', name: 'Portfolio', component: Portfolio },
-        { path: '/', redirect: '/home' }
+        { path: '/', redirect: '/home' },
+        { path: '/login', name: 'Login', component: LoginPage },
+        { path: '/register', name: 'Register', component: RegisterPage }
     ]
 });
 

@@ -169,5 +169,25 @@
         ]
       }
     ]
-  }
+  },
+  "users": [
+    {
+      "name": "javier",
+      "email": "1234@gmail.com",
+      "password": "12324",
+      "id": 1
+    },
+    {
+      "name": "pedro",
+      "email": "pedro@gmail.com",
+      "password": "123456",
+      "id": 2
+    },
+    {
+      "name": "juana",
+      "email": "juana@gmail.com",
+      "password": "123456",
+      "id": 3
+    }
+  ]
 }
