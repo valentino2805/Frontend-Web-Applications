@@ -1,25 +1,71 @@
 <script>
-import LanguageSwitcher from "./public/components/language-switcher.component.vue";
+import { ref, computed, onMounted } from 'vue'
+import LanguageSwitcher from "./public/components/language-switcher.component.vue"
+import { useUserSession } from "./users/services/user-session.store.js"
+import Menu from 'primevue/menu'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'app',
-  components: { LanguageSwitcher },
-  data() {
-    return {
-      drawer: false,
-      items: [
-        { labelKey: 'toolbar.home', to: '/home', icon: 'pi pi-home' },
-        { labelKey: 'toolbar.findDesigner', to: '/publishing/categories', icon: 'pi pi-search' },
-        { labelKey: 'toolbar.payments', to: '/payments', icon: 'pi pi-credit-card' },
-        { labelKey: 'toolbar.qualifications', to: '/qualifications', icon: 'pi pi-graduation-cap' },
-        { labelKey: 'toolbar.message', to: '/message', icon: 'pi pi-comment' },
-        { labelKey: 'toolbar.portfolio', to: '/profile', icon: 'pi pi-briefcase' }
-      ]
-    }
+  components: {
+    LanguageSwitcher,
+    'pv-menu': Menu
   },
-  methods: {
-    toggleDrawer() {
-      this.drawer = !this.drawer;
+  setup() {
+    const { currentUser, clearUser } = useUserSession()
+    const router = useRouter()
+
+    const drawer = ref(false)
+    const menu = ref(null)
+
+    const toolbarItems = computed(() => {
+      const role = currentUser.value?.role
+      if (role === 'cliente') {
+        return [
+          { labelKey: 'toolbar.home', to: '/home', icon: 'pi pi-home' },
+          { labelKey: 'toolbar.findDesigner', to: '/publishing/categories', icon: 'pi pi-search' },
+          { labelKey: 'toolbar.message', to: '/message', icon: 'pi pi-comment' }
+        ]
+      } else if (role === 'disenador') {
+        return [
+          { labelKey: 'toolbar.home', to: '/home', icon: 'pi pi-home' },
+          { labelKey: 'toolbar.payments', to: '/payments', icon: 'pi pi-credit-card' },
+          { labelKey: 'toolbar.qualifications', to: '/qualifications', icon: 'pi pi-graduation-cap' },
+          { labelKey: 'toolbar.message', to: '/message', icon: 'pi pi-comment' },
+          { labelKey: 'toolbar.portfolio', to: '/profile', icon: 'pi pi-briefcase' }
+        ]
+      }
+      return []
+    })
+
+    const menuItems = computed(() => [
+      {
+        label: currentUser.value?.name || 'Usuario',
+        icon: 'pi pi-user'
+      },
+      {
+        label: 'Cerrar sesión',
+        icon: 'pi pi-sign-out',
+        command: () => {
+          clearUser()
+          router.push('/login')
+        }
+      }
+    ])
+
+    const onUserButtonClick = (event) => {
+      if (menu.value) {
+        menu.value.toggle(event)
+      }
+    }
+
+    return {
+      drawer,
+      currentUser,
+      toolbarItems,
+      menuItems,
+      menu,
+      onUserButtonClick
     }
   }
 }
@@ -31,14 +77,14 @@ export default {
   <header>
     <pv-toolbar class="dark-toolbar">
       <template #start>
-        <pv-button class="toolbar-icon" icon="pi pi-bars" id="bars-icon" @click="toggleDrawer" />
+        <pv-button class="toolbar-icon" icon="pi pi-bars" id="bars-icon" @click="drawer = !drawer" />
         <img src="../public/creatilink-logo.png" class="creatilink-logo">
         <h3 class="title-color">CreatiLink</h3>
       </template>
 
       <template #center>
-        <div v-if="!['/dashboard', '/home'].includes($route.path)" class="flex-column">
-          <router-link v-for="item in items"
+        <div v-if="toolbarItems.length > 0" class="flex-column">
+          <router-link v-for="item in toolbarItems"
                        :key="item.labelKey"
                        v-slot="{ navigate, href }"
                        :to="item.to" custom>
@@ -49,14 +95,27 @@ export default {
         </div>
       </template>
 
-
-
       <template #end>
-        <router-link to="/login" custom v-slot="{ navigate, href }">
-          <pv-button class="toolbar-icon" id="user-icon" :href="href" @click="navigate">
-            <i class="pi pi-user"></i>
-          </pv-button>
-        </router-link>
+        <div class="user-menu-wrapper">
+          <template v-if="currentUser">
+            <pv-button
+              class="toolbar-icon"
+              id="user-icon"
+              icon="pi pi-user"
+              @click="onUserButtonClick"
+              aria-haspopup="true"
+              aria-controls="user-menu"
+            />
+            <!-- MUY IMPORTANTE: DEBE ESTAR JUSTO DESPUÉS DEL BOTÓN -->
+            <pv-menu ref="menu" :model="menuItems" popup id="user-menu" />
+          </template>
+
+          <router-link v-else to="/login" custom v-slot="{ navigate, href }">
+            <pv-button class="toolbar-icon" id="user-icon" :href="href" @click="navigate">
+              <i class="pi pi-user"></i>
+            </pv-button>
+          </router-link>
+        </div>
 
         <language-switcher class="language-switcher" />
       </template>
@@ -70,7 +129,7 @@ export default {
         </div>
       </template>
       <div class="drawer-content">
-        <router-link v-for="item in items"
+        <router-link v-for="item in toolbarItems"
                      :key="item.labelKey"
                      v-slot="{ navigate, href }"
                      :to="item.to" custom>
@@ -88,84 +147,67 @@ export default {
 </template>
 
 <style scoped>
+* {
+  font-family: 'Inter', sans-serif;
+}
 .language-switcher {
   margin-left: 1rem;
 }
-</style>
 
-
-
-
-<style scoped>
-
-
-/* Estilo para el toolbar azul oscuro */
 .dark-toolbar {
-  background-color: #00A295; /* Azul oscuro */
-  color: white; /* Color de texto blanco */
+  background-color: #00A295;
+  color: white;
 }
 
-/* Estilo para los botones del toolbar sin borde */
 .no-border {
-  border: none; /* Elimina el borde de los botones */
-  background: none; /* Elimina el fondo del botón */
-  color: white; /* Asegura que el texto sea blanco */
+  border: none;
+  background: none;
+  color: white;
 }
 
+.toolbar-icon {
+  margin-right: 1rem;
+}
 
+#bars-icon {
+  background-color: transparent;
+  border: none;
+}
 
-/* Estilos para el sidebar */
+#user-icon {
+  background-color: black;
+  border: none;
+  border-radius: 100%;
+  width: 2rem;
+  height: 2rem;
+  color: white;
+}
+
+/* Drawer */
 .drawer-title {
   color: white;
   display: flex;
   justify-content: center;
 }
 
-
-
-
-
-.drawer-content{
+.drawer-content {
   display: flex;
   flex-direction: column;
 }
 
-.drawer-button{
+.drawer-button {
   margin: 1rem;
   background-color: black;
   border-color: black;
   text-align: left;
-  color:white;
+  color: white;
   display: flex;
   justify-content: left;
 }
 
-.drawer-button:hover{
+.drawer-button:hover {
   background-color: black !important;
   border-color: #00A295 !important;
   color: #00A295 !important;
 }
-
-#bars-icon{
-  background-color: transparent;
-  border: none;
-}
-
-#user-icon{
-  background-color: black;
-  border: none;
-  border-radius: 100%;
-  width: 2rem;
-  height: 2rem;
-}
-
-/*toolbar end*/
-.toolbar-icon{
-  margin-right: 1rem;
-}
-
-#user-icon{
-  color: white;
-}
-
 </style>

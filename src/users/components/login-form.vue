@@ -1,80 +1,121 @@
-<template>
-  <div class="login-form-container">
-    <h2>Iniciar Sesión</h2>
-
-    <form @submit.prevent="handleLogin">
-      <div class="p-field">
-        <label for="email">Correo electrónico</label>
-        <InputText id="email" v-model="email" type="email" placeholder="Ingresa tu correo" />
-        <small v-if="submitted && !email" class="p-error">El correo es obligatorio</small>
-      </div>
-
-      <div class="p-field">
-        <label for="password">Contraseña</label>
-        <Password id="password" v-model="password" toggleMask placeholder="Ingresa tu contraseña" />
-        <small v-if="submitted && !password" class="p-error">La contraseña es obligatoria</small>
-      </div>
-
-      <Button label="Iniciar Sesión" type="submit" class="p-mt-2 w-full" />
-      <router-link to="/register">
-        <Button label="¿No tienes cuenta? Regístrate aquí" class="mt-3 p-button-text" />
-      </router-link>
-    </form>
-
-    <Message severity="error" v-if="errorMessage" class="p-mt-2">
-      {{ errorMessage }}
-    </Message>
-  </div>
-</template>
-
 <script setup>
-import { ref } from 'vue'
-import  InputText  from 'primevue/inputtext'
-import  Password  from 'primevue/password'
-import  Button  from 'primevue/button'
-import  Message  from 'primevue/message'
+import { ref, watch } from 'vue'
+import InputText from 'primevue/inputtext'
+import Password from 'primevue/password'
+import Button from 'primevue/button'
+import Message from 'primevue/message'
 
 const email = ref('')
 const password = ref('')
 const submitted = ref(false)
-const errorMessage = ref('')
+const internalError = ref('')
 
 const emit = defineEmits(['login'])
+
+const props = defineProps({
+  errorMessage: String
+})
+
+watch(() => props.errorMessage, (newVal) => {
+  internalError.value = newVal
+})
 
 const handleLogin = () => {
   submitted.value = true
 
   if (!email.value || !password.value) {
-    errorMessage.value = 'Por favor, completa todos los campos.'
+    internalError.value = 'Por favor, completa todos los campos.'
     return
   }
 
+  internalError.value = ''
   emit('login', { email: email.value, password: password.value })
-  errorMessage.value = ''
 }
 </script>
 
+<template>
+  <div class="login-form-wrapper">
+    <div class="login-form-card">
+      <h2 class="title">Iniciar Sesión</h2>
+
+      <Message
+        severity="error"
+        v-if="internalError"
+        class="mb-3"
+        :closable="true"
+        icon="pi pi-exclamation-triangle"
+      >
+        {{ internalError }}
+      </Message>
+
+      <form @submit.prevent="handleLogin" class="form">
+        <div class="p-field mb-3">
+          <label for="email">Correo electrónico</label>
+          <InputText
+            id="email"
+            v-model="email"
+            type="email"
+            placeholder="cliente@example.com"
+            class="w-full"
+          />
+          <small v-if="submitted && !email" class="p-error">El correo es obligatorio</small>
+        </div>
+
+        <div class="p-field mb-3">
+          <label for="password">Contraseña</label>
+          <Password
+            id="password"
+            v-model="password"
+            toggleMask
+            placeholder="Ingresa tu contraseña"
+            class="w-full"
+          />
+          <small v-if="submitted && !password" class="p-error">La contraseña es obligatoria</small>
+        </div>
+
+        <Button label="Iniciar Sesión" type="submit" class="w-full mb-2" />
+        <router-link to="/register">
+          <Button label="¿No tienes cuenta? Regístrate aquí" class="p-button-text w-full" />
+        </router-link>
+      </form>
+    </div>
+  </div>
+</template>
+
 <style scoped>
-.login-form-container {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  background-color: white;
+.login-form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f9f9f9;
+  font-family: 'Inter', sans-serif;
 }
 
-.p-field {
-  margin-bottom: 1rem;
+.login-form-card {
+  width: 100%;
+  max-width: 420px;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #4da6a0;
+  font-weight: 600;
 }
 
 label {
+  font-weight: 600;
   display: block;
   margin-bottom: 0.25rem;
-  font-weight: 500;
-  color: black;
+  color: #333;
 }
-h2{
-  color: #4da6a0;
+
+.p-error {
+  font-size: 0.75rem;
 }
 </style>
