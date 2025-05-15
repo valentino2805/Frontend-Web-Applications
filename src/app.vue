@@ -25,7 +25,7 @@ export default {
       if (role === 'cliente') {
         return [
           { labelKey: 'toolbar.home', to: '/home', icon: 'pi pi-home' },
-          { labelKey: 'toolbar.findDesigner', to: '/publishing/categories', icon: 'pi pi-search' },
+          { labelKey: 'toolbar.findDesigner', to: '/find-designer', icon: 'pi pi-search' },
           { labelKey: 'toolbar.message', to: '/message', icon: 'pi pi-comment' }
         ]
       } else if (role === 'disenador') {

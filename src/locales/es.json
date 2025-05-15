@@ -77,7 +77,23 @@
     "applepay": "Apple Pay",
     "googlepay": "Google Pay"
   }
+},
+"findDesigner": {
+  "title": "Buscar Diseñadores",
+  "categories": {
+    "graphic": "Diseñador Gráfico",
+    "interior": "Diseñador de Interiores",
+    "industrial": "Diseñadores Industriales",
+    "fashion": "Diseñadores de Moda"
+  },
+  "viewProfile": "Ver Perfil",
+  "experience": "Experiencia",
+  "location": "Ubicación",
+  "description": "Descripción",
+  "comments": "Comentarios",
+  "rating": "Calificación"
 }
+
 
 }
 

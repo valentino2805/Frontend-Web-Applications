@@ -78,5 +78,21 @@
     "applepay": "Apple Pay",
     "googlepay": "Google Pay"
   }
-  }
+  },
+  "findDesigner": {
+  "title": "Search Designers",
+  "categories": {
+    "graphic": "Graphic Designer",
+    "interior": "Interior Designer",
+    "industrial": "Industrial Designers",
+    "fashion": "Fashion Designers"
+  },
+  "viewProfile": "View Profile",
+  "experience": "Experience",
+  "location": "Location",
+  "description": "Description",
+  "comments": "Comments",
+  "rating": "Rating"
+}
+
 }
