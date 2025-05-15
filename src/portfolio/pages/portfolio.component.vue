@@ -128,17 +128,19 @@ onMounted(async () => {
 })
 
 const updateProject = async (updatedProject) => {
-  const index = projects.value.findIndex(p => p.id === updatedProject.id)
-  if (index !== -1) projects.value[index] = updatedProject
-
   try {
-    const { data: profile } = await axios.get('http://localhost:3000/profile')
-    profile.projects = profile.projects.map(p => p.id === updatedProject.id ? updatedProject : p)
-    await axios.put('http://localhost:3000/profile', profile)
+    const index = projects.value.findIndex(p => p.id === updatedProject.id)
+    if (index !== -1) {
+      // Actualizar el proyecto en la lista local
+      projects.value[index] = { ...updatedProject }
+    } else {
+      console.warn('Proyecto no encontrado para actualizar.')
+    }
   } catch (error) {
     console.error('Error al guardar cambios:', error)
   }
 }
+
 
 
 // Abrir el modal para eliminar proyectos
@@ -159,13 +161,9 @@ const showConfirmDeleteModal = (project) => {
 }
 
 // Confirmar la eliminación del proyecto
+// Confirmar la eliminación del proyecto (versión sin backend)
 const confirmDelete = async () => {
   try {
-    // Eliminar el proyecto del servidor
-    const { data: profile } = await axios.get('http://localhost:3000/profile')
-    profile.projects = profile.projects.filter(p => p.id !== projectToDelete.value.id)
-    await axios.put('http://localhost:3000/profile', profile)
-
     // Eliminar el proyecto de la lista en el frontend
     projects.value = projects.value.filter(p => p.id !== projectToDelete.value.id)
 
@@ -177,6 +175,7 @@ const confirmDelete = async () => {
     console.error('Error al eliminar el proyecto:', error)
   }
 }
+
 
 // Subir la imagen del proyecto
 const handleImageUpload = (event) => {
@@ -190,6 +189,7 @@ const handleImageUpload = (event) => {
 }
 
 // Guardar el nuevo proyecto
+// Guardar el nuevo proyecto (sin Axios, solo en el frontend)
 const saveNewProject = async () => {
   if (!newProject.value.title || !newProject.value.description || !newProject.value.image) {
     alert('Todos los campos son obligatorios.')
@@ -197,38 +197,43 @@ const saveNewProject = async () => {
   }
 
   try {
-    const { data: profile } = await axios.get('http://localhost:3000/profile')
-    const existingProjects = profile.projects || []
+    const existingProjects = projects.value || []
     const maxId = existingProjects.reduce((max, p) => (p.id > max ? p.id : max), 0)
     const newId = maxId + 1
 
     const randomLikes = Math.floor(Math.random() * 90000 + 1000)
     const randomComments = Math.floor(Math.random() * 15000 + 100)
+
     const techArray = newProject.value.technologies
-        .split(',')
-        .map(tech => tech.trim())
-        .filter(tech => tech.length > 0)
+        ? newProject.value.technologies
+            .split(',')
+            .map(tech => tech.trim())
+            .filter(tech => tech.length > 0)
+        : []
+
     const projectToAdd = {
       id: newId,
       title: newProject.value.title,
       description: newProject.value.description,
       image: newProject.value.image,
-      likes: randomLikes,
-      comments: randomComments,
+      url: '#',
+      likes: `${(randomLikes / 1000).toFixed(1)}k`,
+      comments: `${(randomComments / 1000).toFixed(1)}k`,
       technologies: techArray
-
     }
 
-    profile.projects.push(projectToAdd)
-    await axios.put('http://localhost:3000/profile', profile)
-
+    // Agregar el proyecto al listado local
     projects.value.push(projectToAdd)
+
+    // Limpiar formulario y cerrar modal
     showAddModal.value = false
-    newProject.value = { title: '', description: '', image: '' }
+    newProject.value = { title: '', description: '', image: '', technologies: '' }
+
   } catch (error) {
     console.error('Error al añadir proyecto:', error)
   }
 }
+
 
 
 
