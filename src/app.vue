@@ -37,7 +37,7 @@ export default {
       </template>
 
       <template #center>
-        <div class="flex-column">
+        <div v-if="!['/dashboard', '/home'].includes($route.path)" class="flex-column">
           <router-link v-for="item in items"
                        :key="item.labelKey"
                        v-slot="{ navigate, href }"
@@ -48,6 +48,8 @@ export default {
           </router-link>
         </div>
       </template>
+
+
 
       <template #end>
         <router-link to="/login" custom v-slot="{ navigate, href }">
@@ -95,6 +97,8 @@ export default {
 
 
 <style scoped>
+
+
 /* Estilo para el toolbar azul oscuro */
 .dark-toolbar {
   background-color: #00A295; /* Azul oscuro */
@@ -117,16 +121,9 @@ export default {
   justify-content: center;
 }
 
-.drawer-link {
-  display: block; /* Hace que el enlace ocupe toda la línea */
-  padding: 10px; /* Espaciado para el enlace */
-  color: #003366; /* Color del texto del enlace */
-  text-decoration: none; /* Sin subrayado */
-}
 
-.drawer-link:hover {
-  background-color: #e6e6e6; /* Color de fondo al pasar el ratón */
-}
+
+
 
 .drawer-content{
   display: flex;
@@ -145,8 +142,8 @@ export default {
 
 .drawer-button:hover{
   background-color: black !important;
-  border-color: #003366 !important;
-  color: #003366 !important;
+  border-color: #00A295 !important;
+  color: #00A295 !important;
 }
 
 #bars-icon{
