@@ -58,6 +58,49 @@
     "viewPayments": "View my Payments",
     "viewReviews": "View my Reviews",
     "viewChats": "View my Chats"
+  },
+
+  "login": {
+    "title": "Login",
+    "emailLabel": "Email",
+    "emailPlaceholder": "client@example.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "button": "Login",
+    "registerLink": "Don't have an account? Register here",
+    "errors": {
+      "requiredFields": "Please fill in all fields.",
+      "emailRequired": "Email is required",
+      "passwordRequired": "Password is required"
+    }
+  },
+
+  "register": {
+    "title": "Account Registration",
+    "nameLabel": "Full Name",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "button": "Register",
+    "successMessage": "Registration successful! Check your email.",
+    "errors": {
+      "nameRequired": "Name is required.",
+      "invalidEmail": "Invalid email.",
+      "passwordRequired": "Password is required.",
+      "registrationFailed": "Failed to register user. Please try again."
+    }
+  },
+  "auth": {
+    "videoNotSupported": "Your browser does not support HTML5 video.",
+    "leftPanel": {
+      "title": "Hello!",
+      "description": "Already have an account?",
+      "button": "Login"
+    },
+    "rightPanel": {
+      "title": "Start your journey now",
+      "description": "If you don't have an account yet, join us and start your journey.",
+      "button": "Register"
+    }
   }
 
 

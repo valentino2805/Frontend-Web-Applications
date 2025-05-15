@@ -1,9 +1,12 @@
 <script setup>
 import { ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import InputText from 'primevue/inputtext'
 import Password from 'primevue/password'
 import Button from 'primevue/button'
 import Message from 'primevue/message'
+
+const { t } = useI18n()
 
 const email = ref('')
 const password = ref('')
@@ -24,7 +27,7 @@ const handleLogin = () => {
   submitted.value = true
 
   if (!email.value || !password.value) {
-    internalError.value = 'Por favor, completa todos los campos.'
+    internalError.value = t('login.errors.requiredFields')
     return
   }
 
@@ -36,51 +39,56 @@ const handleLogin = () => {
 <template>
   <div class="login-form-wrapper">
     <div class="login-form-card">
-      <h2 class="title">Iniciar Sesión</h2>
+      <h2 class="title">{{ t('login.title') }}</h2>
 
       <Message
-        severity="error"
-        v-if="internalError"
-        class="mb-3"
-        :closable="true"
-        icon="pi pi-exclamation-triangle"
+          severity="error"
+          v-if="internalError"
+          class="mb-3"
+          :closable="true"
+          icon="pi pi-exclamation-triangle"
       >
         {{ internalError }}
       </Message>
 
       <form @submit.prevent="handleLogin" class="form">
         <div class="p-field mb-3">
-          <label for="email">Correo electrónico</label>
+          <label for="email">{{ t('login.emailLabel') }}</label>
           <InputText
-            id="email"
-            v-model="email"
-            type="email"
-            placeholder="cliente@example.com"
-            class="w-full"
+              id="email"
+              v-model="email"
+              type="email"
+              :placeholder="t('login.emailPlaceholder')"
+              class="w-full"
           />
-          <small v-if="submitted && !email" class="p-error">El correo es obligatorio</small>
+          <small v-if="submitted && !email" class="p-error">
+            {{ t('login.errors.emailRequired') }}
+          </small>
         </div>
 
         <div class="p-field mb-3">
-          <label for="password">Contraseña</label>
+          <label for="password">{{ t('login.passwordLabel') }}</label>
           <Password
-            id="password"
-            v-model="password"
-            toggleMask
-            placeholder="Ingresa tu contraseña"
-            class="w-full"
+              id="password"
+              v-model="password"
+              toggleMask
+              :placeholder="t('login.passwordPlaceholder')"
+              class="w-full"
           />
-          <small v-if="submitted && !password" class="p-error">La contraseña es obligatoria</small>
+          <small v-if="submitted && !password" class="p-error">
+            {{ t('login.errors.passwordRequired') }}
+          </small>
         </div>
 
-        <Button label="Iniciar Sesión" type="submit" class="w-full mb-2" />
+        <Button :label="t('login.button')" type="submit" class="w-full mb-2" />
         <router-link to="/register">
-          <Button label="¿No tienes cuenta? Regístrate aquí" class="p-button-text w-full" />
+          <Button :label="t('login.registerLink')" class="p-button-text w-full" />
         </router-link>
       </form>
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .login-form-wrapper {

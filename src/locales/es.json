@@ -57,6 +57,49 @@
     "viewPayments": "Ver mis Pagos",
     "viewReviews": "Ver mis Reseñas",
     "viewChats": "Ver mis Chats"
+  },
+
+  "login": {
+    "title": "Iniciar Sesión",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "cliente@example.com",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Ingresa tu contraseña",
+    "button": "Iniciar Sesión",
+    "registerLink": "¿No tienes cuenta? Regístrate aquí",
+    "errors": {
+      "requiredFields": "Por favor, completa todos los campos.",
+      "emailRequired": "El correo es obligatorio",
+      "passwordRequired": "La contraseña es obligatoria"
+    }
+  },
+
+  "register": {
+    "title": "Registro de Cuenta",
+    "nameLabel": "Nombre completo",
+    "emailLabel": "Correo electrónico",
+    "passwordLabel": "Contraseña",
+    "button": "Registrarse",
+    "successMessage": "¡Registro exitoso! Revisa tu correo.",
+    "errors": {
+      "nameRequired": "El nombre es obligatorio.",
+      "invalidEmail": "Correo inválido.",
+      "passwordRequired": "La contraseña es obligatoria.",
+      "registrationFailed": "Error al registrar usuario. Intenta nuevamente."
+    }
+  },
+  "auth": {
+    "videoNotSupported": "Tu navegador no soporta video HTML5.",
+    "leftPanel": {
+      "title": "¡Hola!",
+      "description": "¿Ya tienes una cuenta?",
+      "button": "Iniciar sesión"
+    },
+    "rightPanel": {
+      "title": "Comienza tu viaje ahora",
+      "description": "Si aún no tienes una cuenta, únete y empieza tu aventura.",
+      "button": "Registrarse"
+    }
   }
 }
 

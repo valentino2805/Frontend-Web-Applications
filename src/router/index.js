@@ -19,8 +19,8 @@ const router = createRouter({
         { path: '/profile',  name: 'profile',  component: ProfilePage,       meta: { title: 'Profile' } },
         { path: '/portfolio', name: 'Portfolio', component: Portfolio },
         { path: '/', redirect: '/home' },
-        { path: '/login', name: 'Login', component: LoginPage },
-        { path: '/register', name: 'Register', component: RegisterPage }
+        { path: '/login', name: 'Auth', component: () => import('../users/pages/AuthView.vue'), meta: { title: 'Auth' } },
+
     ]
 });
 
