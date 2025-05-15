@@ -100,6 +100,43 @@
       "description": "Si aún no tienes una cuenta, únete y empieza tu aventura.",
       "button": "Registrarse"
     }
+  },
+  "payments": {
+  "title": "Pagos",
+  "project": "Proyecto",
+  "amount": "Monto",
+  "date": "Fecha",
+  "paidTo": "Pagado a",
+  "paidBy": "Pagado por",
+  "reload": "Recargar saldo",
+  "methods": {
+    "title": "Elige un método de pago",
+    "plin": "Plin",
+    "yape": "Yape",
+    "cash": "Efectivo",
+    "visa": "Visa",
+    "mastercard": "Mastercard",
+    "paypal": "PayPal",
+    "applepay": "Apple Pay",
+    "googlepay": "Google Pay"
   }
+},
+"findDesigner": {
+  "title": "Buscar Diseñadores",
+  "categories": {
+    "graphic": "Diseñador Gráfico",
+    "interior": "Diseñador de Interiores",
+    "industrial": "Diseñadores Industriales",
+    "fashion": "Diseñadores de Moda"
+  },
+  "viewProfile": "Ver Perfil",
+  "experience": "Experiencia",
+  "location": "Ubicación",
+  "description": "Descripción",
+  "comments": "Comentarios",
+  "rating": "Calificación"
+}
+
+
 }
 

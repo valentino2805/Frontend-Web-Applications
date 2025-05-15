@@ -4,11 +4,13 @@ import LanguageSwitcher from "./public/components/language-switcher.component.vu
 import { useUserSession } from "./users/services/user-session.store.js"
 import Menu from 'primevue/menu'
 import { useRouter } from 'vue-router'
+import ClientBalanceBox from './payments/components/client-balance-box.component.vue'
 
 export default {
   name: 'app',
   components: {
     LanguageSwitcher,
+    ClientBalanceBox,
     'pv-menu': Menu
   },
   setup() {
@@ -23,7 +25,7 @@ export default {
       if (role === 'cliente') {
         return [
           { labelKey: 'toolbar.home', to: '/home', icon: 'pi pi-home' },
-          { labelKey: 'toolbar.findDesigner', to: '/publishing/categories', icon: 'pi pi-search' },
+          { labelKey: 'toolbar.findDesigner', to: '/find-designer', icon: 'pi pi-search' },
           { labelKey: 'toolbar.message', to: '/message', icon: 'pi pi-comment' }
         ]
       } else if (role === 'disenador') {
@@ -116,7 +118,9 @@ export default {
             </pv-button>
           </router-link>
         </div>
-
+        <template v-if="currentUser?.role === 'cliente'">
+          <client-balance-box />
+        </template>
         <language-switcher class="language-switcher" />
       </template>
     </pv-toolbar>
