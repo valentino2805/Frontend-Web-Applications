@@ -52,7 +52,7 @@ const router = createRouter({
             name: 'designer-detail',
             component: DesignerDetailPage 
         },
-        { path: '/register', name: 'Register', component: RegisterPage }
+        { path: '/register', name: 'Register', component: RegisterPage },
         { path: '/login', name: 'Auth', component: () => import('../users/pages/AuthView.vue'), meta: { title: 'Auth' } },
 
     ]
