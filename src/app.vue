@@ -1,10 +1,11 @@
 <script>
 import { ref, computed, onMounted } from 'vue'
 import LanguageSwitcher from "./public/components/language-switcher.component.vue"
-import { useUserSession } from "./users/services/user-session.store.js"
+import { authService } from "./users/services/auth.service.js"
 import Menu from 'primevue/menu'
 import { useRouter } from 'vue-router'
 import ClientBalanceBox from './payments/components/client-balance-box.component.vue'
+
 
 export default {
   name: 'app',
@@ -14,11 +15,11 @@ export default {
     'pv-menu': Menu
   },
   setup() {
-    const { currentUser, clearUser } = useUserSession()
     const router = useRouter()
 
     const drawer = ref(false)
     const menu = ref(null)
+    const currentUser = ref(authService.getCurrentUser())
 
     const toolbarItems = computed(() => {
       const role = currentUser.value?.role
@@ -28,13 +29,15 @@ export default {
           { labelKey: 'toolbar.findDesigner', to: '/find-designer', icon: 'pi pi-search' },
           { labelKey: 'toolbar.message', to: '/message', icon: 'pi pi-comment' }
         ]
-      } else if (role === 'disenador') {
+      } else if (role === 'profile') {
         return [
           { labelKey: 'toolbar.home', to: '/home', icon: 'pi pi-home' },
+          { labelKey: 'toolbar.profile', to: `/profile/${currentUser.value?.profileId}`, icon: 'pi pi-user' },
+          { labelKey: 'toolbar.portfolio', to: '/portfolio', icon: 'pi pi-briefcase' },
           { labelKey: 'toolbar.payments', to: '/payments', icon: 'pi pi-credit-card' },
           { labelKey: 'toolbar.qualifications', to: '/qualifications', icon: 'pi pi-graduation-cap' },
           { labelKey: 'toolbar.message', to: '/message', icon: 'pi pi-comment' },
-          { labelKey: 'toolbar.portfolio', to: '/profile', icon: 'pi pi-briefcase' }
+          { labelKey: 'toolbar.findDesigners', to: '/find-designers', icon: 'pi pi-search' }
         ]
       }
       return []
@@ -42,14 +45,15 @@ export default {
 
     const menuItems = computed(() => [
       {
-        label: currentUser.value?.name || 'Usuario',
+        label: currentUser.value?.profileId || 'Usuario',
         icon: 'pi pi-user'
       },
       {
         label: 'Cerrar sesión',
         icon: 'pi pi-sign-out',
         command: () => {
-          clearUser()
+          authService.logout()
+          currentUser.value = null
           router.push('/login')
         }
       }
@@ -60,6 +64,12 @@ export default {
         menu.value.toggle(event)
       }
     }
+
+    onMounted(() => {
+      if (!currentUser.value) {
+        router.push('/login')
+      }
+    })
 
     return {
       drawer,
@@ -73,6 +83,7 @@ export default {
 }
 </script>
 
+
 <template>
   <pv-toast />
   <pv-confirm-dialog />
@@ -80,8 +91,8 @@ export default {
     <pv-toolbar class="dark-toolbar">
       <template #start>
         <pv-button class="toolbar-icon" icon="pi pi-bars" id="bars-icon" @click="drawer = !drawer" />
-        <img src="../public/creatilink-logo.png" class="creatilink-logo">
-        <h3 class="title-color">CreatiLink</h3>
+        <img src="../public/log2.png" class="creatilink-logo">
+
       </template>
 
       <template #center>
@@ -101,14 +112,13 @@ export default {
         <div class="user-menu-wrapper">
           <template v-if="currentUser">
             <pv-button
-              class="toolbar-icon"
-              id="user-icon"
-              icon="pi pi-user"
-              @click="onUserButtonClick"
-              aria-haspopup="true"
-              aria-controls="user-menu"
+                class="toolbar-icon"
+                id="user-icon"
+                icon="pi pi-user"
+                @click="onUserButtonClick"
+                aria-haspopup="true"
+                aria-controls="user-menu"
             />
-            <!-- MUY IMPORTANTE: DEBE ESTAR JUSTO DESPUÉS DEL BOTÓN -->
             <pv-menu ref="menu" :model="menuItems" popup id="user-menu" />
           </template>
 
@@ -128,8 +138,7 @@ export default {
     <pv-drawer class="drawer-creatilink" v-model:visible="drawer">
       <template #header>
         <div class="drawer-title">
-          <img src="../public/creatilink-logo.png" class="creatilink-logo">
-          <h3>CreatiLink</h3>
+          <img src="../public/log2.png" class="creatilink-logo">
         </div>
       </template>
       <div class="drawer-content">
@@ -150,68 +159,91 @@ export default {
   </main>
 </template>
 
+
+
 <style scoped>
-* {
-  font-family: 'Inter', sans-serif;
-}
-.language-switcher {
-  margin-left: 1rem;
-}
-
 .dark-toolbar {
-  background-color: #00A295;
+  background-color: #141414;
   color: white;
+  border-bottom: 3px solid #765d67;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
 }
-
 .no-border {
   border: none;
   background: none;
   color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+.no-border:hover {
+  color: #6D3C52 !important;
+  background-color: transparent !important;
+}
+.creatilink-logo {
+  height: 100px;
+  margin-right: 0.8rem;
+  filter: brightness(1);
+}
+.drawer-title {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #765d67;
+  color: white;
+}
+.drawer-title img.creatilink-logo {
+  height: 80px;
+  margin-right: 0.8rem;
 }
 
-.toolbar-icon {
-  margin-right: 1rem;
-}
-
-#bars-icon {
+#bars-icon,
+#user-icon {
   background-color: transparent;
   border: none;
-}
-
-#user-icon {
-  background-color: black;
-  border: none;
-  border-radius: 100%;
-  width: 2rem;
-  height: 2rem;
   color: white;
-}
-
-/* Drawer */
-.drawer-title {
-  color: white;
-  display: flex;
-  justify-content: center;
+  font-size: 1.3rem;
+  transition: color 0.3s ease;
+  cursor: pointer;
+  margin-right: 1rem;
 }
 
 .drawer-content {
   display: flex;
   flex-direction: column;
+  padding-top: 1rem;
 }
-
 .drawer-button {
-  margin: 1rem;
-  background-color: black;
-  border-color: black;
-  text-align: left;
+  margin: 0.5rem 1rem;
+  background-color: transparent;
+  border: none;
   color: white;
-  display: flex;
-  justify-content: left;
+  text-align: left;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+.drawer-button:hover {
+  color: #6d3c52 !important;
+  background-color: transparent !important;
+}
+#bars-icon:hover,
+#user-icon:hover {
+  color: #6D3C52;
+}
+.toolbar-icon{
+  margin-right: 1rem;
 }
 
-.drawer-button:hover {
-  background-color: black !important;
-  border-color: #00A295 !important;
-  color: #00A295 !important;
+.drawer-creatilink {
+  background-color: #141414;
+  color: white;
+  width: 250px;
 }
 </style>
