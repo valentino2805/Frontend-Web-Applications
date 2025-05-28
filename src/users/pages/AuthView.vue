@@ -1,34 +1,37 @@
 <template>
   <div class="auth-wrapper">
+
+    <div class="fullscreen-overlay"></div>
+
     <div class="auth-container" :class="{ 'right-panel-active': isRegister }">
-      <!-- Login -->
+
       <div class="form-container sign-in-container">
         <LoginForm @login="onLogin" />
       </div>
 
-      <!-- Register -->
+
       <div class="form-container sign-up-container">
         <RegisterForm />
       </div>
 
-      <!-- Overlay -->
+
       <div class="overlay-container">
         <div class="overlay">
 
-          <!-- Video de fondo dentro del overlay -->
+
           <video autoplay muted loop playsinline class="overlay-video">
-            <source src="/public/background.mp4" type="video/mp4" />
+            <source src="/public/forest.mp4" type="video/mp4" />
             {{ t('auth.videoNotSupported') }}
           </video>
 
-          <!-- Panel izquierdo -->
+
           <div class="overlay-panel overlay-left">
             <h1>{{ t('auth.leftPanel.title') }}</h1>
             <p>{{ t('auth.leftPanel.description') }}</p>
             <button class="ghost" @click="isRegister = false">{{ t('auth.leftPanel.button') }}</button>
           </div>
 
-          <!-- Panel derecho -->
+
           <div class="overlay-panel overlay-right">
             <h1>{{ t('auth.rightPanel.title') }}</h1>
             <p>{{ t('auth.rightPanel.description') }}</p>
@@ -41,6 +44,7 @@
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref } from 'vue'
@@ -61,7 +65,7 @@ const onLogin = async (credentials) => {
   const user = await loginUser(credentials.email, credentials.password)
   if (user) {
     setUser(user)
-    router.push('/dashboard')
+    router.push('/home')
   } else {
     alert(t('auth.loginError'))
   }
@@ -70,6 +74,7 @@ const onLogin = async (credentials) => {
 
 
 <style scoped>
+
 .auth-wrapper {
   display: flex;
   justify-content: center;
@@ -97,7 +102,7 @@ const onLogin = async (credentials) => {
   top: 0;
   height: 100%;
   transition: all 0.6s ease-in-out;
-  margin: 0; /* muy importante */
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
   align-items: center;
@@ -144,7 +149,7 @@ const onLogin = async (credentials) => {
 }
 
 .overlay {
-  background: linear-gradient(to right, #4da6a0, #6bd9c2);
+  background: linear-gradient(to right, #000000, #000000);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -191,13 +196,18 @@ const onLogin = async (credentials) => {
 
 button.ghost {
   background-color: transparent;
-  border: 1px solid #fff;
-  color: #fff;
+  border: 1px solid #6D3C52;
+  color: #6D3C52;
   padding: 10px 25px;
   margin-top: 10px;
   cursor: pointer;
   font-weight: bold;
   border-radius: 20px;
+}
+
+button.ghost:hover {
+  background-color: #765d67;
+  color: white;
 }
 
 
@@ -209,7 +219,30 @@ button.ghost {
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  opacity: 0.6; /* Ajusta para más o menos visibilidad */
-  border-radius: 0 10px 10px 0; /* solo si tu contenedor tiene bordes redondeados */
+  opacity: 0.6;
+  border-radius: 0 10px 10px 0;
+}
+
+
+.fullscreen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+}
+
+
+.auth-container {
+  position: relative;
+  z-index: 20;
+}
+
+
+.auth-wrapper {
+  position: relative;
+  z-index: 15;
 }
 </style>
