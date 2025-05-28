@@ -1,18 +1,14 @@
 <template>
   <div class="form-container">
-    <h2>{{ t('register.title') }}</h2>
+    <h2 style="color: black;">Register</h2>
     <form @submit.prevent="handleRegister">
-      <div class="field">
-        <label for="name">{{ t('register.nameLabel') }}</label>
-        <InputText id="name" v-model="user.name" :class="{'p-invalid': submitted && !user.name}" />
-        <small v-if="submitted && !user.name" class="p-error">{{ t('register.errors.nameRequired') }}</small>
-      </div>
 
       <div class="field">
         <label for="email">{{ t('register.emailLabel') }}</label>
         <InputText id="email" v-model="user.email" :class="{'p-invalid': submitted && !validEmail(user.email)}" />
         <small v-if="submitted && !validEmail(user.email)" class="p-error">{{ t('register.errors.invalidEmail') }}</small>
       </div>
+
 
       <div class="field">
         <label for="password">{{ t('register.passwordLabel') }}</label>
@@ -26,7 +22,19 @@
         <small v-if="submitted && !user.password" class="p-error">{{ t('register.errors.passwordRequired') }}</small>
       </div>
 
-      <Button :label="t('register.button')" type="submit" class="mt-3" />
+
+      <div class="field">
+        <label for="role">{{ t('register.roleLabel') || 'Rol' }}</label>
+        <select id="role" v-model="user.role" required :class="{'p-invalid': submitted && !user.role}">
+          <option disabled value="">{{ t('register.selectRole') || 'Selecciona un rol' }}</option>
+          <option value="profile">{{ t('register.roles.profile') || 'Perfil (Diseñador)' }}</option>
+          <option value="client">{{ t('register.roles.client') || 'Cliente' }}</option>
+        </select>
+        <small v-if="submitted && !user.role" class="p-error">Selecciona un rol</small>
+      </div>
+
+
+      <Button :label="t('register.button')" type="submit" class="register-button mt-3" />
       <Message v-if="success" severity="success" class="mt-3">
         {{ t('register.successMessage') }}
       </Message>
@@ -37,11 +45,12 @@
   </div>
 </template>
 
+
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { registerUser } from '../services/user-service.js'
+import { authService } from '../services/auth.service.js'
 
 import InputText from 'primevue/inputtext'
 import Password from 'primevue/password'
@@ -49,18 +58,17 @@ import Button from 'primevue/button'
 import Message from 'primevue/message'
 
 const { t } = useI18n()
+const router = useRouter()
 
 const user = ref({
-  name: '',
   email: '',
-  password: ''
+  password: '',
+  role: ''
 })
 
 const submitted = ref(false)
 const success = ref(false)
 const errorMessage = ref('')
-
-const router = useRouter()
 
 function validEmail(email) {
   const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -71,19 +79,20 @@ async function handleRegister() {
   submitted.value = true
   errorMessage.value = ''
 
-  if (user.value.name && validEmail(user.value.email) && user.value.password) {
+  if (validEmail(user.value.email) && user.value.password) {
     try {
-      await registerUser(user.value)
+      await authService.register(user.value)
       success.value = true
       submitted.value = false
-      user.value = { name: '', email: '', password: '' }
+      user.value = { email: '', password: '', role: '' }
       setTimeout(() => router.push('/login'), 1500)
     } catch (error) {
-      errorMessage.value = t('register.errors.registrationFailed')
+      errorMessage.value = error.message || t('register.errors.registrationFailed')
     }
   }
 }
 </script>
+
 
 
 <style scoped>
@@ -99,10 +108,24 @@ async function handleRegister() {
   margin-bottom: 1.5rem;
 }
 h2{
-  color: #4da6a0;
+  color: #000000;
 }
 label{
   color: black;
   padding-right: 50px;
+}
+
+.register-button {
+  border-radius: 25px !important;
+  background-color: #765d67 !important;
+  color: #000000 !important;
+  border: none !important;
+  padding: 0.5rem 2.5rem !important;
+  font-weight: bold;
+}
+.register-button:hover {
+  background-color: #4B2138 !important;
+  color: #000000 !important;
+  border: none !important;
 }
 </style>

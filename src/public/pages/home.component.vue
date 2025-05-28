@@ -1,54 +1,27 @@
 <template>
-  <div>
-    <div class="w-full flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-500 to-blue-500">
-      <h1 class="text-8xl font-bold text-white animate-fade-in">{{ $t('home.welcome') }}</h1>
-      <p class="text-4xl text-white mt-4 animate-slide-up">{{ $t('home.to') }}</p>
-
-      <!-- Botón EMPEZAR -->
-      <button @click="goToDashboard" class="custom-red-button mt-6 font-bold rounded-lg p-button-raised">
-        {{ $t('home.start') }}
-      </button>
-    </div>
+  <div class="background-stripes flex flex-col items-center justify-center min-h-screen">
+    <h1 class="text-8xl font-bold text-white glowing-text animate-fade-in">
+      {{ $t('home.welcome') }}
+    </h1>
+    <p class="text-4xl text-white mt-4 glowing-text animate-slide-up">
+      {{ $t('home.to') }}
+    </p>
   </div>
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
-import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
-const router = useRouter();
-const { locale } = useI18n();
+const router = useRouter()
+const { locale } = useI18n()
 
 const changeLanguage = (lang) => {
-  locale.value = lang;
-};
-
-const goToDashboard = () => {
-  router.push('/dashboard');
-};
+  locale.value = lang
+}
 </script>
 
-
 <style scoped>
-
-.custom-red-button {
-  background-color: #00A295; /* rojo intenso */
-  color: white;
-  padding: 1rem 3rem; /* más grande: 16px vertical, 48px horizontal */
-  font-size: 1.5rem; /* texto más grande */
-  font-weight: bold;
-  border: none; /* quitar borde */
-  border-radius: 0.5rem; /* esquinas redondeadas */
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.custom-red-button:hover {
-  background-color: #56f6ef; /* rojo más oscuro al hacer hover */
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
 
 @keyframes fade-in {
   0% {
@@ -78,10 +51,7 @@ const goToDashboard = () => {
   animation: slide-up 2s ease-in-out;
 }
 
-.bg-white {
-  background-color: white;
-}
-
+/* Layout y estilos */
 .min-h-screen {
   min-height: 100vh;
 }
@@ -104,55 +74,56 @@ const goToDashboard = () => {
 
 .text-8xl {
   font-size: 6rem;
-  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .text-4xl {
   font-size: 2.25rem;
-  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .font-bold {
   font-weight: bold;
 }
 
-.text-black {
-  color: black;
-}
-
-.p-button-raised {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.p-button-raised:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  transform: translateY(-2px);
-}
-
 .mt-4 {
   margin-top: 1rem;
 }
 
-.mt-6 {
-  margin-top: 1.5rem;
+/* Fondo con tu paleta */
+.background-stripes {
+  background: linear-gradient(135deg, #4B2138, #6D3C52, #765d67);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+  position: relative;
+  overflow: hidden;
 }
 
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
+.background-stripes::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px,
+      transparent 20px
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-.rounded-lg {
-  border-radius: 0.5rem;
-}
 
-.text-purple-600 {
-  color: #000000;
-}
 </style>

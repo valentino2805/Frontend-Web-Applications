@@ -1,12 +1,12 @@
 <template>
   <div class="flip-card">
     <div class="flip-card-inner" :class="{ flipped: showBack }">
-      <!-- Parte frontal -->
+
       <div class="flip-card-front" @click="flipCard">
         <img :src="project.image" alt="project image" class="card-image" />
       </div>
 
-      <!-- Parte trasera -->
+
       <div class="flip-card-back" @click="flipCard">
         <h4>{{ project.title }}</h4>
         <p>{{ project.description || $t('portfolio.defaultDescription') }}</p>
@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <!-- MODAL DE EDICIÓN -->
+
   <div class="modal-backdrop" v-if="showModal">
     <div class="modal">
       <label>{{ $t('portfolio.title') }}:
@@ -50,7 +50,7 @@
     </div>
   </div>
 
-  <!-- MODAL DE INFORMACIÓN -->
+
   <div class="modal-backdrop" v-if="showInfoModal">
     <div class="modal">
       <h2>{{ project.title }}</h2>
@@ -133,7 +133,7 @@ const onImageUpload = (event) => {
 
 .flip-card {
   width: 100%;
-  height: 360px; /* más alto */
+  height: 360px;
   perspective: 1000px;
 }
 
@@ -195,7 +195,7 @@ const onImageUpload = (event) => {
 
 .edit-btn {
   padding: 6px 10px;
-  background: #00A295;
+  background: #765d67;
   color: white;
   border: none;
   border-radius: 6px;
@@ -217,7 +217,7 @@ const onImageUpload = (event) => {
 
 /* MODAL */
 .modal-backdrop {
-  position: fixed; /* ⬅️ Esto es clave para cubrir todo */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -256,7 +256,7 @@ const onImageUpload = (event) => {
 .card-actions {
   display: flex;
   justify-content: center;
-  gap: 16px; /* Aumenta el espacio entre botones */
+  gap: 16px;
   margin-top: 12px;
 }
 .modal-actions {

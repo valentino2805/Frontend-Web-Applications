@@ -2,21 +2,21 @@
 export class Project {
     constructor({
                     id,
+                    profileId,
                     title,
-                    url,
                     image,
                     likes = '0',
                     comments = '0',
                     description = '',
-                    technologies = [] // <- Se agrega aquí
+                    technologies = []
                 }) {
-        this.id = id
-        this.title = title
-        this.url = url
-        this.image = image
-        this.likes = likes
-        this.comments = comments
-        this.description = description
-        this.technologies = technologies // <- Y se asigna aquí
+        this.id = id;
+        this.profileId = profileId;
+        this.title = title;
+        this.image = image;
+        this.likes = likes;
+        this.comments = comments;
+        this.description = description;
+        this.technologies = technologies;
     }
 }

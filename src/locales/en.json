@@ -5,7 +5,10 @@
     "payments": "Payments",
     "qualifications": "Qualifications",
     "message": "Message",
-    "portfolio": "Portfolio"
+    "profile": "Profile",
+    "portfolio": "Portfolio",
+    "findDesigners": "See other designers"
+
   },
   "profile": {
     "editProfile": "Edit Profile",
@@ -25,7 +28,7 @@
     "save": "Save"
   },
   "home": {
-    "welcome": "Welcome to CreatiLink",
+    "welcome": "WELCOME TO CREATILINK",
     "to": "TechNova",
     "start": "Start"
   },
@@ -136,6 +139,10 @@
   "description": "Description",
   "comments": "Comments",
   "rating": "Rating"
-}
+},
+  "userList": {
+    "title": "View Other Designers",
+    "viewProfile": "View Profile"
+  }
 
 }

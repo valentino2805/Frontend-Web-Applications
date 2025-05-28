@@ -1,120 +1,209 @@
+<template>
+  <div class="form-container">
+    <h2 style="color: black;">Login</h2>
+    <form @submit.prevent="handleLogin">
+      <div class="field">
+        <label for="email">{{ t('login.emailLabel') }}</label>
+        <InputText
+            id="email"
+            v-model="credentials.email"
+            :class="{ 'p-invalid': submitted && !validEmail(credentials.email) }"
+        />
+        <small v-if="submitted && !validEmail(credentials.email)" class="p-error">
+          {{ t('login.errors.invalidEmail') }}
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="password">{{ t('login.passwordLabel') }}</label>
+        <Password
+            id="password"
+            v-model="credentials.password"
+            toggleMask
+            :feedback="false"
+            :class="{ 'p-invalid': submitted && !credentials.password }"
+        />
+        <small v-if="submitted && !credentials.password" class="p-error">
+          {{ t('login.errors.passwordRequired') }}
+        </small>
+      </div>
+
+      <div class="field remember-me">
+        <input type="checkbox" id="rememberMe" v-model="rememberMe" />
+        <label for="rememberMe">{{ t('Remember Me') }}</label>
+      </div>
+
+      <div class="button-container">
+        <Button
+            :label="t('login.button')"
+            type="submit"
+            class="login-button"
+        />
+      </div>
+
+      <Message v-if="success" severity="success" class="mt-3">
+        {{ t('login.successMessage') }}
+      </Message>
+
+      <Message v-if="errorMessage" severity="error" class="mt-3">
+        {{ errorMessage }}
+      </Message>
+    </form>
+
+    <div class="alternative-login">
+      <p>{{ t('or Use Your Account') }}</p>
+      <div class="social-icons">
+        <button aria-label="Login with Facebook" @click="loginWith('facebook')" class="social-btn facebook">
+          <i class="pi pi-facebook"></i>
+        </button>
+        <button aria-label="Login with Google" @click="loginWith('google')" class="social-btn google">
+          <i class="pi pi-google"></i>
+        </button>
+        <button aria-label="Login with LinkedIn" @click="loginWith('linkedin')" class="social-btn linkedin">
+          <i class="pi pi-linkedin"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup>
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { authService } from '../services/auth.service.js'
+// import { useUserSession } from '../services/user-session.store.js'
+
 import InputText from 'primevue/inputtext'
 import Password from 'primevue/password'
 import Button from 'primevue/button'
 import Message from 'primevue/message'
 
 const { t } = useI18n()
+const router = useRouter()
+// const { setUser } = useUserSession()
 
-const email = ref('')
-const password = ref('')
+const credentials = ref({
+  email: '',
+  password: ''
+})
+
+const rememberMe = ref(false)
 const submitted = ref(false)
-const internalError = ref('')
+const success = ref(false)
+const errorMessage = ref('')
 
-const emit = defineEmits(['login'])
+function validEmail(email) {
+  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return pattern.test(email)
+}
 
-const props = defineProps({
-  errorMessage: String
-})
-
-watch(() => props.errorMessage, (newVal) => {
-  internalError.value = newVal
-})
-
-const handleLogin = () => {
+async function handleLogin() {
   submitted.value = true
+  errorMessage.value = ''
+  success.value = false
 
-  if (!email.value || !password.value) {
-    internalError.value = t('login.errors.requiredFields')
-    return
+  if (validEmail(credentials.value.email) && credentials.value.password) {
+    try {
+      const user = await authService.login(credentials.value.email, credentials.value.password)
+
+      if (user) {
+
+        success.value = true
+        submitted.value = false
+
+        setTimeout(() => {
+          if (user.role === 'cliente' || user.role === 'disenador') {
+            router.push('/home')
+          } else {
+            router.push('/home')
+          }
+        }, 1500)
+      }
+    } catch (error) {
+      errorMessage.value = t('login.errors.invalidCredentials')
+    }
   }
+}
 
-  internalError.value = ''
-  emit('login', { email: email.value, password: password.value })
+function loginWith(provider) {
+  alert(`Login with ${provider} clicked`)
 }
 </script>
 
-<template>
-  <div class="login-form-wrapper">
-    <div class="login-form-card">
-      <h2 class="title">{{ t('login.title') }}</h2>
-
-      <Message
-          severity="error"
-          v-if="internalError"
-          class="mb-3"
-          :closable="true"
-          icon="pi pi-exclamation-triangle"
-      >
-        {{ internalError }}
-      </Message>
-
-      <form @submit.prevent="handleLogin" class="form">
-        <div class="p-field mb-3">
-          <label for="email">{{ t('login.emailLabel') }}</label>
-          <InputText
-              id="email"
-              v-model="email"
-              type="email"
-              :placeholder="t('login.emailPlaceholder')"
-              class="w-full"
-          />
-          <small v-if="submitted && !email" class="p-error">
-            {{ t('login.errors.emailRequired') }}
-          </small>
-        </div>
-
-        <div class="p-field mb-3">
-          <label for="password">{{ t('login.passwordLabel') }}</label>
-          <Password
-              id="password"
-              v-model="password"
-              toggleMask
-              :placeholder="t('login.passwordPlaceholder')"
-              class="w-full"
-          />
-          <small v-if="submitted && !password" class="p-error">
-            {{ t('login.errors.passwordRequired') }}
-          </small>
-        </div>
-
-        <Button :label="t('login.button')" type="submit" class="w-full mb-2" />
-        <router-link to="/register">
-          <Button :label="t('login.registerLink')" class="p-button-text w-full" />
-        </router-link>
-      </form>
-    </div>
-  </div>
-</template>
-
 
 <style scoped>
-.login-form-wrapper {
+
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.button-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #f9f9f9;
-  font-family: 'Inter', sans-serif;
+  margin-bottom: 1rem;
 }
 
-.login-form-card {
-  width: 100%;
-  max-width: 420px;
-  background-color: #fff;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+.login-button {
+  border-radius: 25px !important;
+  background-color: #765d67 !important;
+  color: #000000 !important;
+  border: none !important;
+  padding: 0.5rem 2.5rem !important;
+  font-weight: bold;
+}
+.login-button:hover {
+  background-color: #4B2138 !important;
+  color: #000000 !important;
+  border: none !important;
 }
 
-.title {
+.alternative-login {
   text-align: center;
-  margin-bottom: 1.5rem;
-  color: #4da6a0;
-  font-weight: 600;
+  margin-top: 1.5rem;
+  color: #666;
 }
+
+.social-icons {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.social-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.8rem;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+.social-btn.facebook:hover {
+  color: #3b5998;
+}
+
+.social-btn.google:hover {
+  color: #db4437;
+}
+
+.social-btn.linkedin:hover {
+  color: #0077b5;
+}
+
 
 label {
   font-weight: 600;
@@ -126,4 +215,11 @@ label {
 .p-error {
   font-size: 0.75rem;
 }
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
 </style>

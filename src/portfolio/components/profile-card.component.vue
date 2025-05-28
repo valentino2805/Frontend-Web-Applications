@@ -1,15 +1,12 @@
 <template>
-  <div class="profile-card">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <!-- SECCIÓN ROJA -->
+  <div class="profile-card">
     <div class="header">
-      <!-- Icono del perfil -->
       <div class="header-left">
         <div class="icon-container">
           <img :src="profile.icon || '/images/default-icon.jpg'" alt="Profile Icon" class="profile-icon" />
-          <!-- Ícono de cámara para cambiar el ícono -->
-          <label class="camera-icon-icon">
+          <label class="camera-icon-icon" v-if="isOwnProfile">
             <i class="fas fa-camera"></i>
             <input type="file" @change="onIconChange" accept="image/*" class="upload-input-hidden" />
           </label>
@@ -20,7 +17,7 @@
         </div>
       </div>
 
-      <div class="header-right">
+      <div class="header-right" v-if="isOwnProfile">
         <button class="btn edit" @click="openEditModal">{{ $t('profile.editProfile') }}</button>
         <div class="bottom-buttons">
           <button class="btn message">{{ $t('profile.message') }}</button>
@@ -29,16 +26,13 @@
       </div>
     </div>
 
-    <!-- SECCIÓN BLANCA -->
     <div class="body">
       <div class="left-section">
         <div class="nav-buttons">
           <button class="btn-tab" @click="activeTab = 'about'">{{ $t('profile.aboutMe') }}</button>
           <button class="btn-tab" @click="activeTab = 'portfolio'">{{ $t('profile.portfolio') }}</button>
-          <button class="btn-tab" @click="openSocialMediaModal">{{ $t('profile.socialMedia') }}</button>
         </div>
 
-        <!-- ABOUT ME -->
         <div class="bio" v-if="activeTab === 'about'">
           <p>{{ profile.bio }}</p>
           <ul>
@@ -46,47 +40,40 @@
           </ul>
         </div>
 
-        <!-- PORTFOLIO -->
-
-        <PortfolioSection v-if="activeTab === 'portfolio'" />
-
+        <PortfolioSection
+            v-if="activeTab === 'portfolio'"
+            :projects="profile.projects"
+        />
       </div>
 
       <div class="right-section">
         <div class="profile-img-container" v-if="activeTab === 'about'">
           <img :src="profile.image || 'https://i.pravatar.cc/300?img=3'" alt="Profile Photo" class="profile-img" />
-
-          <!-- Ícono de cámara sobrepuesto -->
-          <label class="camera-icon">
+          <label class="camera-icon" v-if="isOwnProfile">
             <i class="fas fa-camera"></i>
             <input type="file" @change="onImageChange" accept="image/*" class="upload-input-hidden" />
           </label>
         </div>
 
-      </div>
-    </div>
-
-    <!-- MODAL SOCIAL MEDIA -->
-    <div class="modal social-modal" v-if="showSocialMedia">
-      <div class="modal-content">
-        <button class="close-btn" @click="closeSocialMediaModal">{{ $t('profile.close') }}</button>
-        <h2>{{ $t('profile.socialMedia') }}</h2>
-        <div class="social-photos">
-          <a :href="profile.social.instagram" target="_blank" rel="noopener noreferrer">
-            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" />
+        <div class="social-icons-inline" v-if="activeTab === 'about'">
+          <a :href="profile.social.instagram" target="_blank" class="icon instagram">
+            <div class="tooltip">Instagram</div>
+            <i class="fa-brands fa-instagram"></i>
           </a>
-          <a :href="profile.social.facebook" target="_blank" rel="noopener noreferrer">
-            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384053.png" alt="Facebook" />
+          <a :href="profile.social.facebook" target="_blank" class="icon facebook">
+            <div class="tooltip">Facebook</div>
+            <i class="fa-brands fa-facebook"></i>
           </a>
-          <a :href="profile.social.x" target="_blank" rel="noopener noreferrer">
-            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968830.png" alt="X" />
+          <a :href="profile.social.x" target="_blank" class="icon x">
+            <div class="tooltip">X</div>
+            <i class="fa-brands fa-x-twitter"></i>
           </a>
         </div>
       </div>
     </div>
 
-    <!-- MODAL DE EDICIÓN -->
-    <div class="modal edit-modal" v-if="showEditModal">
+    <!-- Modal Edición -->
+    <div class="modal edit-modal" v-if="showEditModal && isOwnProfile">
       <div class="modal-content">
         <button class="close-btn" @click="closeEditModal">{{ $t('profile.close') }}</button>
         <h2>{{ $t('profile.editProfile') }}</h2>
@@ -116,18 +103,19 @@
         </form>
       </div>
     </div>
-
   </div>
 </template>
 
 <script setup>
-import PortfolioSection from '../pages/portfolio.component.vue';
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import PortfolioSection from '../pages/portfolio.component.vue'
+import { ref, onMounted, computed } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { getProfile } from '../services/profile.service.js'
 
-const activeTab = ref('about') // 'about' será la sección activa por defecto
+const router = useRouter()
+const route = useRoute()
 
+const activeTab = ref('about')
 const profile = ref({
   name: '',
   location: '',
@@ -139,16 +127,16 @@ const profile = ref({
     instagram: '',
     facebook: '',
     x: ''
-  }
+  },
+  projects: []
 })
 
-const showSocialMedia = ref(false)
+const currentUser = ref(JSON.parse(localStorage.getItem('currentUser')) || {})
+const isOwnProfile = computed(() => currentUser.value?.profileId == profile.value?.id)
+
 const showEditModal = ref(false)
 const editableProfile = ref({})
 const experienceText = ref('')
-
-const openSocialMediaModal = () => showSocialMedia.value = true
-const closeSocialMediaModal = () => showSocialMedia.value = false
 
 const openEditModal = () => {
   editableProfile.value = JSON.parse(JSON.stringify(profile.value))
@@ -160,33 +148,59 @@ const closeEditModal = () => {
   showEditModal.value = false
 }
 
-const saveProfileChanges = () => {
+const saveProfileChanges = async () => {
   editableProfile.value.experience = experienceText.value.split('\n').map(e => e.trim()).filter(Boolean)
 
-  // Simula guardar en memoria (sin backend)
-  profile.value = JSON.parse(JSON.stringify(editableProfile.value))
-  closeEditModal()
-}
+  try {
+    const response = await fetch(`https://my-json-server.typicode.com/SoyValzzz/Creatilink-db/profiles/${editableProfile.value.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(editableProfile.value)
+    })
 
+    if (!response.ok) throw new Error('Error al guardar en el servidor')
+
+    const updated = await response.json()
+    profile.value = updated
+    closeEditModal()
+  } catch (error) {
+    alert('Error al guardar los cambios: ' + error.message)
+  }
+}
 
 onMounted(async () => {
   try {
-    const data = await getProfile()
-    profile.value = data
+    const profileId = route.params.profileId
+    const loadedProfile = await getProfile(profileId)
+    profile.value = loadedProfile
   } catch (err) {
     console.error('Error cargando perfil:', err)
   }
 })
-const updateProfileField = (field, value) => {
-  profile.value[field] = value
 
-  if (showEditModal.value) {
-    editableProfile.value = JSON.parse(JSON.stringify(profile.value))
-    experienceText.value = editableProfile.value.experience.join('\n')
+const updateProfileField = async (field, value) => {
+  try {
+    const updatedProfile = { ...profile.value, [field]: value }
+
+    const response = await fetch(`https://my-json-server.typicode.com/SoyValzzz/Creatilink-db/profiles/${updatedProfile.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updatedProfile)
+    })
+
+    if (!response.ok) throw new Error('Error al actualizar el perfil')
+
+    const updated = await response.json()
+    profile.value = updated
+
+    if (showEditModal.value) {
+      editableProfile.value = JSON.parse(JSON.stringify(updated))
+      experienceText.value = editableProfile.value.experience.join('\n')
+    }
+  } catch (err) {
+    alert('Error al actualizar: ' + err.message)
   }
 }
-
-
 
 const onImageChange = (event) => {
   const file = event.target.files[0]
@@ -209,21 +223,18 @@ const onIconChange = (event) => {
   }
   reader.readAsDataURL(file)
 }
-
-const router = useRouter()
-const goToPortfolio = () => {
-  router.push('/portfolio')
-}
 </script>
 
 
 <style scoped>
 
+
+
 .camera-icon-icon {
   position: absolute;
-  top: 0px;           /* Ajusta para que se coloque en la posición que deseas sobre la imagen */
-  right: 10px;         /* Ajusta para que se coloque a la derecha de la imagen */
-  background-color: rgba(255, 255, 255, 0.6);  /* Fondo semi-transparente */
+  top: 0px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.6);
   color: #000000;
   padding: 10px;
   border-radius: 50%;
@@ -236,21 +247,21 @@ const goToPortfolio = () => {
 }
 
 .camera-icon-icon:hover {
-  background-color: rgba(255, 255, 255, 0.8);  /* Cambio de color al pasar el mouse */
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .icon-container {
-  position: relative; /* Esto es necesario para que el ícono se posicione sobre la imagen */
+  position: relative;
 }
 
 
 
 
 .profile-icon {
-  width: 150px; /* Ajusta el tamaño según lo necesites */
-  height: 150px; /* Ajusta el tamaño según lo necesites */
-  border-radius: 5px; /* Ajusta este valor para obtener bordes más o menos redondeados */
-  object-fit: cover; /* Mantiene la proporción sin distorsionar la imagen */
+  width: 150px;
+  height: 150px;
+  border-radius: 5px;
+  object-fit: cover;
 
 }
 
@@ -263,7 +274,7 @@ const goToPortfolio = () => {
 .camera-icon {
   position: absolute;
   bottom: 15px;
-  right: 15px; /* Cambia a 'center' si quieres centrar */
+  right: 15px;
   background-color: rgba(255, 255, 255, 0.6);
   color: #000000;
   padding: 10px;
@@ -285,6 +296,8 @@ const goToPortfolio = () => {
 }
 
 .profile-card {
+  max-width: 1500px;
+  margin: 0 auto;
   font-family: 'Segoe UI', sans-serif;
   background-color: #fff;
   border-radius: 10px;
@@ -293,13 +306,16 @@ const goToPortfolio = () => {
   position: relative;
 }
 
-/* SECCIÓN ROJA */
+
 .header {
+  max-width: 1500px;
+  margin: 0 auto;
+
   background: linear-gradient(to right, #7a1c2f, #9d2d44);
   color: #000000;
   display: flex;
   justify-content: space-between;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 1rem;
 }
 
 .header-left {
@@ -329,10 +345,47 @@ const goToPortfolio = () => {
 }
 
 .edit {
-  background-color: #00A295;
-  color: #fff;
-  margin-bottom: 1rem;
+  cursor: pointer;
+  position: relative;
+  padding: 10px 24px;
+  font-size: 18px;
+  color: rgb(0, 0, 0);
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 34px;
+  background-color: transparent;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  overflow: hidden;
 }
+
+.edit:hover {
+  color: #212121;
+  scale: 1.1;
+  box-shadow: 0 0px 20px rgb(118, 93, 103);
+}
+
+.edit:active{
+  scale: 1;
+}
+
+.edit:hover::before {
+  scale: 3;
+}
+
+.edit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: inherit;
+  scale: 0;
+  z-index: -1;
+  background-color: rgb(118, 93, 103);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
 
 .bottom-buttons {
   display: flex;
@@ -348,17 +401,17 @@ const goToPortfolio = () => {
 .body {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap; /* Para que se adapte a pantallas pequeñas */
+  flex-wrap: wrap;
   padding: 2rem;
   gap: 2rem;
   color: #000;
   width: 100%;
   box-sizing: border-box;
-  overflow: hidden; /* Prevenir el desbordamiento */
+  overflow: hidden;
 }
 
 .left-section {
-  flex: 1 1 60%; /* Que ocupe el 60% y se reduzca si es necesario */
+  flex: 1 1 60%;
   min-width: 300px;
   box-sizing: border-box;
 }
@@ -373,18 +426,52 @@ const goToPortfolio = () => {
 }
 
 .btn-tab {
-  border: none;
-  background-color: #00A295;
-  padding: 0.4rem 1rem;
-  border-radius: 6px;
   cursor: pointer;
-  font-weight: 500;
+  position: relative;
+  padding: 10px 24px;
+  font-size: 18px;
+  color: rgb(118, 93, 103);
+  border: 2px solid rgb(118, 93, 103);
+  border-radius: 34px;
+  background-color: transparent;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  overflow: hidden;
 }
+
+.btn-tab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: inherit;
+  scale: 0;
+  z-index: -1;
+  background-color: rgb(118, 93, 103);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.btn-tab:hover::before {
+  scale: 3;
+}
+
+.btn-tab:hover {
+  color: #212121;
+  scale: 1.1;
+  box-shadow: 0 0px 20px rgb(118, 93, 103);
+}
+
+.btn-tab:active {
+  scale: 1;
+}
+
 
 @media (max-width: 768px) {
   .left-section,
   .right-section {
-    flex: 1 1 100%; /* Ocupan todo el ancho en pantallas pequeñas */
+    flex: 1 1 100%;
   }
 }
 
@@ -396,7 +483,7 @@ const goToPortfolio = () => {
   box-sizing: border-box;
 }
 
-/* --- MODAL SOCIAL MEDIA --- */
+
 .modal.social-modal {
   position: absolute;
   top: 0;
@@ -411,17 +498,21 @@ const goToPortfolio = () => {
 
 .modal.social-modal .modal-content {
   background: white;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   border-radius: 10px;
   position: relative;
   text-align: center;
   width: 90%;
-  max-width: 500px;
+  max-width: 400px;
+  max-height: 210px;
+
   color: #000;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
+
 
 .modal.social-modal .close-btn {
   position: absolute;
@@ -440,12 +531,7 @@ const goToPortfolio = () => {
   background-color: darkred;
 }
 
-.social-photos {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 1.5rem;
-}
+
 
 .social-photos a {
   display: inline-block;
@@ -458,9 +544,9 @@ const goToPortfolio = () => {
   object-fit: contain;
 }
 
-/* --- MODAL EDITAR PERFIL --- */
+
 .modal.edit-modal {
-  position: fixed; /* ← importante: evita que el fondo se mueva */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -481,8 +567,8 @@ const goToPortfolio = () => {
   text-align: left;
   width: 90%;
   max-width: 600px;
-  max-height: 90vh; /* ← límite vertical */
-  overflow-y: auto; /* ← hace scroll dentro del modal */
+  max-height: 90vh;
+  overflow-y: auto;
   color: #000;
 }
 
@@ -525,7 +611,7 @@ form textarea {
 }
 
 form button {
-  background-color: #00A295;
+  background-color: #765d67;
   color: #fff;
   padding: 0.6rem 1.5rem;
   border: none;
@@ -536,5 +622,93 @@ form button {
 form button:hover {
   background-color: #9d2d44;
 }
+
+
+.icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 0 3px;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  text-decoration: none;
+  color: inherit;
+}
+
+.icon .tooltip {
+  position: absolute;
+  top: -15px;
+  background: #333;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: 0.3s;
+  white-space: nowrap;
+}
+
+.icon:hover .tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.icon i {
+  font-size: 40px;
+}
+
+.icon.instagram i {
+  color: #E1306C;
+}
+
+.icon.facebook i {
+  color: #1877F2;
+}
+
+.icon.x i {
+  color: #000000;
+}
+.icon.instagram .tooltip {
+  background: #E1306C;
+}
+
+.icon.facebook .tooltip {
+  background: #1877F2;
+}
+
+.icon.x .tooltip {
+  background: #000000;
+}
+
+
+
+.social-icons-inline {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 0px;
+}
+
+.social-icons-inline .icon {
+  font-size: 20px;
+  color: #555;
+  transition: color 0.3s;
+}
+
+.social-icons-inline .icon:hover {
+  color: #e1306c;
+}
+
+.social-icons-inline .facebook:hover {
+  color: #3b5998;
+}
+
+.social-icons-inline .x:hover {
+  color: #000;
+}
+
 
 </style>
