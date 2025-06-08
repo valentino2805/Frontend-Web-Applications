@@ -1,58 +1,46 @@
 import User from '../model/user.entity.js';
 
-const API_URL = 'https://my-json-server.typicode.com/SoyValzzz/Creatilink-db/users';
+const BASE_URL = 'https://creatilink-api-production-4e2f.up.railway.app/api/v1';
+
+const API_URL = `${BASE_URL}/authentication`;
+const API_URL_USERS = `${BASE_URL}/users`;
 
 
-async function getAllUsers() {
-    const res = await fetch(API_URL);
-    const users = await res.json();
-    return users;
-}
+
+
 
 export const authService = {
     async login(email, password) {
-        const res = await fetch(`${API_URL}?email=${email}&password=${password}`);
-        const users = await res.json();
-
-        if (users.length) {
-            const user = users[0];
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            return user;
-        } else {
-            throw new Error('Email o contraseña incorrectos');
-        }
-    },
-
-    async register(userData) {
-
-        const check = await fetch(`${API_URL}?email=${userData.email}`);
-        const exists = await check.json();
-
-        if (exists.length) throw new Error('El correo ya está registrado');
-
-
-        let userWithId = { ...userData, id: Date.now() };
-
-
-        if (userData.role === 'profile') {
-            userWithId = { ...userWithId, profileId: Date.now() };
-        } else if (userData.role === 'client') {
-            userWithId = { ...userWithId, clientId: Date.now() };
-        }
-
-
-        const res = await fetch(API_URL, {
+        const res = await fetch(`${API_URL}/sign-in`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(userWithId)
+            body: JSON.stringify({ email, password })
+        });
+
+        if (!res.ok) throw new Error('Error en el inicio de sesión');
+
+        const user = await res.json();
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        return user;
+    },
+
+
+    async register(userData) {
+        const res = await fetch(`${API_URL}/sign-up`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
         });
 
         if (!res.ok) throw new Error('Error al registrar usuario');
 
-        return userWithId;
+        return await res.json();
     },
+
 
     logout() {
         localStorage.removeItem('currentUser');
@@ -64,8 +52,10 @@ export const authService = {
     },
 
     async getAllUsers() {
-        const res = await fetch(API_URL);
+        const res = await fetch(API_URL_USERS);
+        if (!res.ok) throw new Error('Error al obtener los usuarios');
         const users = await res.json();
         return users;
     }
+
 };

@@ -4,27 +4,77 @@
       "id": "1",
       "email": "valentino@example.com",
       "password": "123456",
-      "role": "profile",
-      "profileId": 1
+      "role": "profile"
+
     },
     {
       "id": "2",
       "email": "ana@example.com",
       "password": "ana123",
-      "role": "profile",
-      "profileId": 2
+      "role": "profile"
+
     },
     {
       "id": "3",
       "email": "sylvee@example.com",
       "password": "123",
-      "role": "profile",
-      "profileId": 3
+      "role": "cliente"
+    }
+    ,
+    {
+      "id": "4",
+      "email": "soypan@example.com",
+      "password": "123",
+      "role": "cliente"
+    },
+    {
+      "id": "5",
+      "email": "nataliamx@example.com",
+      "password": "123",
+      "role": "cliente"
+    },
+    {
+      "id": "6",
+      "email": "cristorata@example.com",
+      "password": "123456",
+      "role": "profile"
+    },
+    {
+      "id": "7",
+      "email": "ana_de_armas@example.com",
+      "password": "ana123",
+      "role": "profile"
+    },
+    {
+      "id": "8",
+      "email": "peyton_list@example.com",
+      "password": "123",
+      "role": "profile"
+    },
+
+    {
+      "id": "9",
+      "email": "sachauzumaki@example.com",
+      "password": "123",
+      "role": "profile"
+    },
+    {
+      "id": "10",
+      "email": "ben10@example.com",
+      "password": "123",
+      "role": "profile"
+    },
+    {
+      "id": "11",
+      "email": "tomie_kawakami@example.com",
+      "password": "123",
+      "role": "profile"
     }
   ],
   "profiles": [
     {
       "id": "1",
+      "userId": "1",
       "name": "Valentino Sandoval Paiva",
       "location": "Lima, Perú",
       "bio": "Soy Valentino Sandoval Paiva, un apasionado diseñador gráfico con más de una década de experiencia en el mundo creativo. Nací y crecí en Lima, Perú, donde descubrí mi amor por el arte y el diseño desde temprana edad. Este interés me llevó a estudiar Diseño Gráfico en la Universidad de Lima, obteniendo el título de Licenciado y consolidando las bases de mi carrera profesional.\\nA lo largo de mi trayectoria, he tenido el privilegio de trabajar en diversos proyectos y empresas que me han permitido expandir mis habilidades. Comencé como diseñador junior en una agencia de publicidad local, donde aprendí a dominar el branding y la creación de contenido visual. Con el tiempo, fui ascendiendo hasta ocupar el cargo de Director de Arte en una agencia internacional, liderando equipos creativos y diseñando campañas para marcas globales.\\nHe tenido la oportunidad de diseñar identidades visuales para empresas emergentes, crear ilustraciones digitales para revistas internacionales y colaborar con ONG’s en campañas sociales. En cada proyecto, me esfuerzo por aportar innovación y creatividad, buscando siempre superar las expectativas de quienes confían en mí.\\nAdemás de mi trabajo profesional, disfruto impartiendo talleres de diseño gráfico para jóvenes talentos. Creo firmemente en compartir el conocimiento y en inspirar a otros a explorar su creatividad. También me apasiona la fotografía urbana y el arte digital, disciplinas que complementan mi trabajo y me permiten mantener una perspectiva fresca e innovadora. Así que si requieres de algún trabajo referente al diseño, no dudes en escribirme:)",
@@ -43,6 +93,7 @@
     },
     {
       "id": "2",
+        "userId": "2",
       "name": "Sydney Sweeney",
       "location": "Spokane, Washington, Estados Unidos",
       "bio": "Sydney Sweeney (nacida el 12 de septiembre de 1997 en Spokane, Washington, EE. UU.) es una actriz estadounidense que ha ganado reconocimiento por sus papeles en populares series de televisión y películas. Su carrera comenzó a una edad temprana, y desde entonces ha logrado consolidarse como una de las estrellas emergentes más talentosas de Hollywood.\n\nSweeney empezó a interesarse por la actuación a los 12 años, cuando su familia se mudó a Los Ángeles. Antes de que su nombre fuera conocido mundialmente, Sydney hizo numerosas audiciones y comenzó a trabajar en pequeños papeles en televisión. Su primera gran oportunidad llegó en 2018 con un papel recurrente en la serie Everything Sucks!, una serie de Netflix ambientada en los años 90. Aunque la serie fue cancelada tras una temporada, su actuación llamó la atención de los productores y directores de la industria.\n\nSin embargo, fue su papel como Cassie Howard en la exitosa serie de HBO Euphoria (estrenada en 2019) lo que realmente catapultó su carrera. Su interpretación de una adolescente vulnerable y emocionalmente compleja le valió el reconocimiento tanto de críticos como de la audiencia, consolidándola como una de las actrices jóvenes más prometedoras de la televisión. La serie, creada por Sam Levinson y protagonizada por Zendaya, abordó temas como el abuso de sustancias, la identidad sexual y la salud mental, y le permitió a Sweeney mostrar su versatilidad actoral.\n\nTras el éxito de Euphoria, Sydney continuó expandiendo su carrera con varios papeles en cine y televisión. Participó en la serie The White Lotus (2021), de HBO, una antología de drama que también recibió una gran cantidad de elogios, y en la que interpretó a Olivia Mossbacher, una joven privilegiada que se ve involucrada en las tensiones de una familia rica durante sus vacaciones en un resort de lujo. The White Lotus ganó varios premios, incluyendo varios Premios Emmy, y el trabajo de Sydney fue altamente aclamado.\n\nAdemás de su éxito en televisión, Sydney ha trabajado en películas de cine. En 2021, protagonizó la película Nocturne, un thriller psicológico que fue lanzado en Amazon Prime Video, y también formó parte del elenco de Once Upon a Time in Hollywood (2019), dirigida por Quentin Tarantino. Su habilidad para adaptarse a diferentes géneros y estilos cinematográficos le ha permitido ganar una amplia gama de seguidores y una mayor visibilidad en la industria.\n\nA pesar de su joven edad, Sweeney ha demostrado una gran madurez profesional, y ha sido reconocida por su ética de trabajo y su compromiso con cada uno de sus proyectos. Es conocida por no tener miedo a interpretar personajes complejos y oscuros, desafiando las expectativas de su imagen pública.\n\nAdemás de su carrera como actriz, Sydney es una empresaria en ascenso. En 2020, lanzó su propia línea de cosméticos, Sweeney Skin, con un enfoque en productos accesibles y de alta calidad, lo que la convierte en una figura multifacética en la industria del entretenimiento. Su presencia en las redes sociales también ha sido significativa, donde comparte momentos de su vida personal y profesional con sus seguidores.\n\nFuera de la pantalla, Sydney Sweeney es conocida por su naturaleza reservada y su actitud profesional. A pesar de la fama, ha mantenido un perfil bajo en cuanto a su vida personal y ha expresado en varias entrevistas que prefiere mantener sus relaciones y su vida privada lejos de los reflectores. Es una defensora activa de la salud mental y ha hablado abiertamente sobre los desafíos que enfrentan los jóvenes actores en la industria del entretenimiento.",
@@ -63,8 +114,8 @@
       "name": "Sylvia Frank (Sylvee)",
       "location": "Florida, Estados Unidos",
       "bio": "Soy Sylvia Frank, conocida en línea como Sylvee, una streamer y creadora de contenido apasionada por los videojuegos y la comunidad. Desde mis inicios en 2020, he estado construyendo un espacio acogedor en Twitch, donde comparto mi amor por juegos como Minecraft, Stardew Valley y Final Fantasy XIV Online.\\nComo VTuber, adopto la forma de una demonio lobo, representada con un avatar animado en 2D, lo cual me permite expresarme creativamente mientras interactúo con mi audiencia.\\nHe tenido el privilegio de colaborar con otros creadores como Sapnap y Captain Puffy, y participar en eventos como Twitch Rivals. Además, he trabajado en campañas con marcas como LEGO, combinando el entretenimiento con experiencias auténticas para mis seguidores.\\nMe apasiona crear una comunidad positiva, donde todos se sientan bienvenidos. Si compartes el amor por los videojuegos, el arte y un buen ambiente, estás invitado a unirte a mis transmisiones. ¡Nos vemos en directo!",
-      "image": "https://i.ibb.co/0VjFzR7/sylvee-profile.jpg",
-      "icon": "https://i.ibb.co/QQW07RQ/sylvee-icon.png",
+      "image": "https://i.ibb.co/zhngLXRb/460514788-577985224555654-4535023021577150119-n.jpg",
+      "icon": "https://static-cdn.jtvnw.net/jtv_user_pictures/33f2e044-ef77-445b-b103-472f13c56e65-profile_image-300x300.png",
       "experience": [
         "Streamer de videojuegos",
         "VTuber (demonio lobo)",
@@ -82,7 +133,7 @@
       "name": "Manuel Aguilar (soypan)",
       "location": "Ciudad de México, México",
       "bio": "¡Hola! Soy Soypan, streamer de Twitch y creador de contenido enfocado en juegos de estrategia, simulación y cozy games. Desde 2021 comencé mi aventura en Twitch con el objetivo de construir una comunidad divertida, relajada y con mucho pan (¡literal y figuradamente!).\n\nMis streams son conocidos por su ambiente chill, interacción constante con el chat y un enfoque muy cercano a la audiencia. Entre los juegos que más disfruto están Cities: Skylines, Animal Crossing, y The Sims. También realizo transmisiones especiales de construcción en Minecraft y colaboraciones con otros creadores latinos.\n\nAdemás del gaming, ocasionalmente realizo directos de \"charlando\" donde hablo sobre temas de bienestar mental, creatividad y vida digital. Soy defensor del contenido positivo y auténtico. Si buscas un lugar donde relajarte, reír y sentirte en casa, ¡mi canal es para ti!\n\n¡Nos vemos en vivo, panecito!",
-      "image": "https://instagram.flim33-1.fna.fbcdn.net/v/t51.29350-15/324695540_213838344441227_7595674578548555828_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0uaW1hZ2VfdXJsZ2VuLjE0NDB4MTgwMC5zZHIuZjI5MzUwLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=instagram.flim33-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QFMT9qpMlL-3nosF6eiYESRu9RWWEkJXL6xNRxZAmATxZvDl68PbMzxwVUcKgNbTas&_nc_ohc=MOgc4efUC_wQ7kNvwHaM6Xi&_nc_gid=Q5XUQlgLUIAjtxDk33JoxA&edm=APoiHPcBAAAA&ccb=7-5&ig_cache_key=MzAxMTYwMjYyMDU5NTM3ODE3Ng%3D%3D.3-ccb7-5&oh=00_AfKv4B4ODGI1NqrpTyrU3XZQTSmD8DF3ogLNrSGU0n1ZkQ&oe=6833157F&_nc_sid=22de04",
+      "image": "https://i.ibb.co/mr6H30dP/SOYPAN.png",
       "icon": "https://static-cdn.jtvnw.net/jtv_user_pictures/d1714f39-3b66-4801-b3f2-a29b93c2cbff-profile_image-70x70.png",
       "experience": [
         "Streamer cozy en Twitch",
@@ -94,6 +145,122 @@
         "instagram": "https://www.instagram.com/soypan.tv/",
         "facebook": "https://www.facebook.com/soypantwitch",
         "x": "https://x.com/soypan_tv"
+      }
+    },
+    {
+      "id": "5",
+      "name": "Natalia García",
+      "location": "México",
+      "bio": "Soy Natalia García, conocida como 'nataliamx' en Twitch y redes sociales. Nací el 1 de abril de 2000 en México, y desde muy joven me apasioné por el mundo del streaming y los videojuegos. Comencé creando contenido casualmente, pero con el tiempo mi comunidad creció y me motivó a profesionalizarme como creadora de contenido. Actualmente formo parte del equipo 19esports y me dedico a hacer streams en Twitch, donde interactúo con mi audiencia en sesiones de Just Chatting, gameplays y contenido IRL. Además, me encanta compartir momentos de mi día a día en Instagram y Facebook, donde miles de personas siguen mi trabajo. Mi estilo se caracteriza por la cercanía con mi comunidad, el humor y la autenticidad. ¡Gracias por ser parte de este viaje!",
+      "image": "https://i.ibb.co/RTTBZf0Z/nati.png",
+      "icon": "https://i.ibb.co/nNCVD5Yv/Captura-de-pantalla-2025-06-02-233927.png",
+      "experience": [
+        "Streamer de contenido IRL y videojuegos",
+        "Creadora de contenido digital en Twitch y redes sociales",
+        "Miembro del equipo 19esports"
+      ],
+      "social": {
+        "instagram": "https://www.instagram.com/_nataliamx/",
+        "facebook": "https://www.facebook.com/naataliagaming",
+        "x": "https://x.com/_nataliamx"
+      }
+    },
+    {
+      "id": "6",
+      "name": "Cristo Rata",
+      "location": "Perú",
+      "bio": "Cristo Rata es un streamer peruano que ha conquistado el corazón de muchos con su estilo único y su sentido del humor inconfundible. Su canal ha crecido rápidamente, convirtiéndose en una de las figuras más destacadas en la comunidad de streaming. Con su carisma y estilo, ha acumulado miles de seguidores que lo adoran. Además de jugar, Cristo Rata comparte anécdotas y tiene conversaciones sinceras con su audiencia, creando una conexión especial con cada uno de ellos.",
+      "image": "https://files.kick.com/images/user/37748685/profile_image/conversion/bb8c1847-06c9-452b-9800-673997f74107-fullsize.webp",
+      "icon": "https://cloudfront-us-east-1.images.arcpublishing.com/infobae/7GKVBBTGEFD2BAMNN2YPWM4GNA.jpg",
+      "experience": [
+        "Streamer Principal",
+        "Creador de Contenido"
+      ],
+      "social": {
+        "twitch": "https://www.twitch.tv/cristorata",
+        "instagram": "https://www.instagram.com/cristorata/",
+        "twitter": "https://twitter.com/cristorata"
+      }
+    },
+    {
+      "id": "7",
+      "name": "Ana de Armas",
+      "location": "La Habana, Cuba",
+      "bio": "Ana de Armas es una talentosa actriz cubana, conocida por su increíble talento y belleza. Desde sus inicios en Cuba hasta su éxito en Hollywood, ha protagonizado una gran variedad de películas que han sido aclamadas por la crítica. Algunos de sus papeles más destacados incluyen 'Blade Runner 2049' y 'Knives Out'. Además de su carrera cinematográfica, Ana también es conocida por su presencia en redes sociales y su activismo en diversas causas sociales.",
+      "image": "https://www.lavanguardia.com/peliculas-series/images/all/profile/1988/4/224513/w1280/3vxvsmYLTf4jnr163SUlBIw51ee.jpg",
+      "icon": "https://media.revistavanityfair.es/photos/60e8369f7c159c2a68148c45/master/w_1600%2Cc_limit/205924.jpg",
+      "experience": [
+        "Actriz Principal",
+        "Embajadora de Causas Sociales"
+      ],
+      "social": {
+        "instagram": "https://www.instagram.com/ana_d_armas/",
+        "twitter": "https://twitter.com/AnaDeArmas/"
+      }
+    },
+    {
+      "id": "8",
+      "name": "Peyton List",
+      "location": "Florida, EE.UU.",
+      "bio": "Peyton List es una actriz y modelo estadounidense conocida por sus papeles en series como 'Jessie' y 'Bunk'd' de Disney Channel. A lo largo de los años, Peyton ha logrado una carrera exitosa en la televisión, y ha aparecido en varias películas. Además de su carrera como actriz, también se dedica a compartir su vida en las redes sociales, inspirando a jóvenes a seguir sus sueños y siendo un modelo a seguir para muchos.",
+      "image": "https://people.com/thmb/JD5zOn0tz3uazxmDMyfuQNE8IuI=/4000x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(1499x0:1501x2)/peyton-list-people-8-d190e216fc0e4a1fb31e2653838986cc.jpg",
+      "icon": "https://i.ytimg.com/vi/B_B8YFUEmbI/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLB4wHO4EoSZxZY_pwcoBWC22eLM2A",
+      "experience": [
+        "Actriz",
+        "Modelo"
+      ],
+      "social": {
+        "instagram": "https://www.instagram.com/peytonlist/",
+        "twitter": "https://twitter.com/PeytonList/"
+      }
+    },
+    {
+      "id": "9",
+      "name": "Sacha Uzumaki",
+      "location": "Perú",
+      "bio": "Sacha Uzumaki es un streamer peruano muy conocido en la comunidad de videojuegos. Con su estilo único y su actitud relajada, Sacha ha creado una base de seguidores fieles que lo acompañan en cada una de sus transmisiones. Se caracteriza por su habilidad para jugar títulos de diferentes géneros, pero sobre todo por su personalidad abierta y amigable, que le ha permitido conectar con su audiencia.",
+      "image": "https://scontent.flim33-1.fna.fbcdn.net/v/t1.15752-9/494833027_1701842317112802_4357748421120505434_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=0024fc&_nc_ohc=nbLxYlQPxwAQ7kNvwEkrKMi&_nc_oc=Adk5H_4fQUH6I4lKoevU5YZenLT7ionpR1o8TkGCHFcKISs17kjxrH3rmaYXLbriCgQ&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.flim33-1.fna&oh=03_Q7cD2QFglaK6s0g_nt_PUDFXcSl6I3nyQyVQECEbBeA6gkUs_g&oe=68661F7D",
+      "icon": "https://yt3.googleusercontent.com/MsMTpsSJrIC99zcM4BNuZnsLnAlxzg4znFJvcnw_qaaLXx8Jp1A5SO2FgTtajj8E-LMsqUO8ng=s900-c-k-c0x00ffffff-no-rj",
+      "experience": [
+        "Streamer de Juegos",
+        "Creador de Contenido"
+      ],
+      "social": {
+        "twitch": "https://www.twitch.tv/sachauzumaki",
+        "instagram": "https://www.instagram.com/sachauzumaki/",
+        "twitter": "https://twitter.com/sachauzumaki"
+      }
+    },
+    {
+      "id": "10",
+      "name": "Ben 10",
+      "location": "Omniverse",
+      "bio": "Ben Tennyson, conocido como Ben 10, es un joven héroe ficticio que posee un reloj alienígena llamado Omnitrix, el cual le permite transformarse en diferentes alienígenas. A lo largo de su historia, ha luchado contra villanos de todo tipo, mientras aprende importantes lecciones sobre responsabilidad y trabajo en equipo. Aunque es un personaje ficticio, ha dejado una huella en generaciones de fanáticos alrededor del mundo.",
+      "image": "https://preview.redd.it/ben-10-000-cosplay-v0-9pspip1onasc1.jpeg?width=640&crop=smart&auto=webp&s=1eca4d3b7d66e30ad035caa9dfd9a34f91701746",
+      "icon": "https://i.pinimg.com/736x/fd/7a/9e/fd7a9ef7085b10300057e73e818293a9.jpg",
+      "experience": [
+        "Héroe",
+        "Luchador contra Villanos"
+      ],
+      "social": {
+        "instagram": "https://www.instagram.com/ben10/",
+        "twitter": "https://twitter.com/ben10"
+      }
+    },
+    {
+      "id": "11",
+      "name": "Tomie Kawakami",
+      "location": "Japón",
+      "bio": "Tomie Kawakami es la protagonista de un famoso manga de horror titulado 'Tomie', creado por Junji Ito. Tomie es una joven con la capacidad de regenerarse indefinidamente, lo que la hace inmortal. A lo largo de la historia, Tomie es una figura aterradora que genera una atmósfera de suspenso y horror, mientras su presencia provoca tragedias a su alrededor. Su historia es un clásico del género de terror psicológico japonés.",
+      "image": "https://i.pinimg.com/736x/93/3c/a7/933ca7d27a65a5491e578824adc5e77f.jpg",
+      "icon": "https://images.squarespace-cdn.com/content/v1/5fe76a518d20536a3fbd7246/1628192543718-XEPLY8GJ68LULZG2Q0ZD/Tomie-Image-8-Painter-Pg.-367.png",
+      "experience": [
+        "Protagonista de Manga de Horror",
+        "Ser Inmortal"
+      ],
+      "social": {
+        "instagram": "https://www.instagram.com/tomie_kawakami/",
+        "twitter": "https://twitter.com/tomie_kawakami"
       }
     }
 
