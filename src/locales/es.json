@@ -10,6 +10,8 @@
     "findDesigners": "Ver otros diseñadores"
   },
   "profile": {
+    "hire": "Contratar",
+    "uploadingImage": "Cargando...",
     "editProfile": "Editar Perfil",
     "message": "Mensaje",
     "follow": "Seguir",
@@ -148,7 +150,33 @@
   "userList": {
     "title": "Ver otros Diseñadores",
     "viewProfile": "Ver perfil"
+  },
+  "findDesigner": {
+    "categories": {
+      "graphic": "Diseñador Gráfico",
+      "interior": "Diseñador de Interiores",
+      "industrial": "Diseñador Industrial",
+      "fashion": "Diseñador de Modas"
+    },
+    "description": {
+      "graphic": "Especialista en comunicación visual, domina la tipografía, color y composición.",
+      "interior": "Transforma espacios interiores en ambientes funcionales y estéticos.",
+      "industrial": "Crea productos innovadores que combinan funcionalidad y estilo.",
+      "fashion": "Diseña prendas y colecciones que expresan identidad y tendencias."
+    }
+  },
+  "findDesigner": {
+    "title": "Descubre nuestros diseñadores",
+    "location": "Ubicación",
+    "experience": "Experiencia",
+    "rating": "Calificación",
+    "description": "Acerca de",
+    "viewProfile": "Ver perfil",
+    "comments": "Comentarios",
+    "technologies": "Tecnologías",
+    "likes": "Likes",
+    "commentsCount": "Comentarios",
+    "writeComment": "Escribe un comentario..."
   }
-
 }
 

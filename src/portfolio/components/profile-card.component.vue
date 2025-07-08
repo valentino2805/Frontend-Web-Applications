@@ -1,10 +1,10 @@
 <template>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <div class="profile-card" v-if="!showCreateModal">
-    <div class="header" >
+    <div class="header">
       <div class="header-left">
-      <div class="icon-container">
+        <div class="icon-container">
           <img :src="profile.icon || '/images/default-icon.jpg'" alt="Profile Icon" class="profile-icon" />
           <label class="camera-icon-icon" v-if="isOwnProfile">
             <i class="fas fa-camera"></i>
@@ -22,15 +22,17 @@
         <div class="bottom-buttons">
           <button class="btn message">{{ $t('profile.message') }}</button>
           <button class="btn follow">{{ $t('profile.follow') }}</button>
+
         </div>
       </div>
     </div>
 
-    <div class="body" >
+    <div class="body">
       <div class="left-section">
         <div class="nav-buttons">
           <button class="btn-tab" @click="activeTab = 'about'">{{ $t('profile.aboutMe') }}</button>
           <button class="btn-tab" @click="activeTab = 'portfolio'">{{ $t('profile.portfolio') }}</button>
+          <button class="btn hire" v-if="isClient && !isOwnProfile">{{ $t('profile.hire') }}</button>
         </div>
 
         <div class="bio" v-if="activeTab === 'about'">
@@ -105,13 +107,28 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Crear Perfil -->
   <CreateProfileModal
       v-if="showCreateModal"
       :userId="currentUser?.id"
       @create="handleCreateProfile"
       @close="showCreateModal = false"
   />
+
+  <!-- 🟣 Loader global con fondo oscuro -->
+  <div class="full-screen-loader" v-if="isUploading">
+    <div class="upload-loader">
+      <p>{{ $t('profile.uploadingImage') }}</p>
+      <div class="loader-wrapper">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
 </template>
+
 
 <script setup>
 import CreateProfileModal from '../components/Create-profile.component.vue'
@@ -143,12 +160,16 @@ const projects = ref([]);
 
 const currentUser = ref(JSON.parse(localStorage.getItem('currentUser')) || {})
 const isOwnProfile = computed(() => currentUser.value?.id == route.params.profileId);
+const isClient = computed(() => currentUser.value?.role === 'client')
+
 
 
 const showEditModal = ref(false)
 const editableProfile = ref({})
 const experienceText = ref('')
 const showCreateModal = ref(false)
+const isUploading = ref(false)
+
 
 
 const openEditModal = () => {
@@ -163,6 +184,8 @@ const closeEditModal = () => {
 
 const saveProfileChanges = async () => {
   editableProfile.value.experience = experienceText.value.split('\n').map(e => e.trim()).filter(Boolean);
+
+  isUploading.value = true;
 
   try {
    // const response = await fetch(`http://localhost:3000/profiles/${editableProfile.value.id}`, {
@@ -180,6 +203,8 @@ const saveProfileChanges = async () => {
     closeEditModal();
   } catch (error) {
     alert('Error al guardar los cambios: ' + error.message);
+  } finally {
+    isUploading.value = false;
   }
 };
 
@@ -272,22 +297,29 @@ const onImageChange = (event) => {
   const file = event.target.files[0]
   if (!file) return
 
+  isUploading.value = true
+
   const reader = new FileReader()
-  reader.onload = () => {
+  reader.onload = async () => {
     const updated = { ...profile.value, image: reader.result }
-    updateProfile(updated)
+    await updateProfile(updated)
+    isUploading.value = false
   }
   reader.readAsDataURL(file)
 }
+
 
 const onIconChange = (event) => {
   const file = event.target.files[0]
   if (!file) return
 
+  isUploading.value = true
+
   const reader = new FileReader()
-  reader.onload = () => {
-    const updated = { ...profile.value, icon: reader.result }
-    updateProfile(updated)
+  reader.onload = async () => {
+    const updated = {...profile.value, icon: reader.result}
+    await updateProfile(updated)
+    isUploading.value = false
   }
   reader.readAsDataURL(file)
 }
@@ -777,6 +809,75 @@ form button:hover {
 
 .social-icons-inline .x:hover {
   color: #000;
+}
+
+.full-screen-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.upload-loader {
+  text-align: center;
+  color: white;
+  font-family: sans-serif;
+}
+
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 60px;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  animation: bounce 0.6s infinite alternate;
+}
+
+.circle:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.circle:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0px);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+  }
+  100% {
+    transform: translateY(-20px);
+    box-shadow: 0 20px 5px rgba(255, 255, 255, 0.2);
+  }
+}
+
+
+.btn.hire {
+  background: #ffc107;
+  color: #222;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.btn.hire:hover {
+  background: #e0a800;
 }
 
 

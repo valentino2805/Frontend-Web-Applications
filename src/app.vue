@@ -42,9 +42,7 @@ export default {
       const role = userStore.currentUser?.role
       if (role === 'client') {
         return [
-          { labelKey: 'toolbar.home', to: '/home', icon: 'pi pi-home' },
           { labelKey: 'toolbar.findDesigner', to: '/find-designer', icon: 'pi pi-search' },
-          { labelKey: 'toolbar.message', to: '/message', icon: 'pi pi-comment' }
         ]
       } else if (role === 'profile') {
         return [

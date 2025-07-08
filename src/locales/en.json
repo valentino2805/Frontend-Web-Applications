@@ -11,6 +11,7 @@
 
   },
   "profile": {
+    "hire": "Hire",
     "editProfile": "Edit Profile",
     "message": "Message",
     "follow": "Follow",
@@ -25,7 +26,8 @@
     "instagram": "Instagram:",
     "facebook": "Facebook:",
     "x": "X:",
-    "save": "Save"
+    "save": "Save",
+    "uploadingImage": "Loading..."
   },
   "home": {
     "welcome": "WELCOME TO CREATILINK",
@@ -151,6 +153,34 @@
   "userList": {
     "title": "View Other Designers",
     "viewProfile": "View Profile"
+  },
+
+  "findDesigner": {
+    "categories": {
+      "graphic": "Graphic Designer",
+      "interior": "Interior Designer",
+      "industrial": "Industrial Designer",
+      "fashion": "Fashion Designer"
+    },
+    "description": {
+      "graphic": "Visual communication expert, mastering typography, color, and layout.",
+      "interior": "Transforms interior spaces into functional and aesthetic environments.",
+      "industrial": "Creates innovative products that blend functionality and style.",
+      "fashion": "Designs clothing and collections that express identity and trends."
+    }
+  },
+  "findDesigner": {
+    "title": "Discover our designers",
+    "location": "Location",
+    "experience": "Experience",
+    "rating": "Rating",
+    "description": "About",
+    "viewProfile": "View Profile",
+    "comments": "Comments",
+    "technologies": "Technologies",
+    "likes": "Likes",
+    "commentsCount": "Comments",
+    "writeComment": "Write a comment..."
   }
 
 }
