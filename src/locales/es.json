@@ -131,52 +131,35 @@
     "googlepay": "Google Pay"
   }
 },
-"findDesigner": {
-  "title": "Buscar Diseñadores",
-  "categories": {
-    "graphic": "Diseñador Gráfico",
-    "interior": "Diseñador de Interiores",
-    "industrial": "Diseñadores Industriales",
-    "fashion": "Diseñadores de Moda"
-  },
-  "viewProfile": "Ver Perfil",
-  "experience": "Experiencia",
-  "location": "Ubicación",
-  "description": "Descripción",
-  "comments": "Comentarios",
-  "rating": "Calificación"
-},
-
-  "userList": {
-    "title": "Ver otros Diseñadores",
-    "viewProfile": "Ver perfil"
-  },
   "findDesigner": {
+    "title": "Descubre nuestros diseñadores",
+    "viewProfile": "Ver perfil",
+    "location": "Ubicación",
+    "experience": "Experiencia",
+    "rating": "Calificación",
+    "description": "Acerca de",
+    "comments": "Comentarios",
+    "technologies": "Tecnologías",
+    "likes": "Likes",
+    "commentsCount": "Comentarios",
+    "writeComment": "Escribe un comentario...",
     "categories": {
       "graphic": "Diseñador Gráfico",
       "interior": "Diseñador de Interiores",
       "industrial": "Diseñador Industrial",
       "fashion": "Diseñador de Modas"
     },
-    "description": {
+    "descriptionDetails": {
       "graphic": "Especialista en comunicación visual, domina la tipografía, color y composición.",
       "interior": "Transforma espacios interiores en ambientes funcionales y estéticos.",
       "industrial": "Crea productos innovadores que combinan funcionalidad y estilo.",
       "fashion": "Diseña prendas y colecciones que expresan identidad y tendencias."
     }
   },
-  "findDesigner": {
-    "title": "Descubre nuestros diseñadores",
-    "location": "Ubicación",
-    "experience": "Experiencia",
-    "rating": "Calificación",
-    "description": "Acerca de",
-    "viewProfile": "Ver perfil",
-    "comments": "Comentarios",
-    "technologies": "Tecnologías",
-    "likes": "Likes",
-    "commentsCount": "Comentarios",
-    "writeComment": "Escribe un comentario..."
+
+  "userList": {
+    "title": "Ver otros Diseñadores",
+    "viewProfile": "Ver perfil"
   }
 }
 

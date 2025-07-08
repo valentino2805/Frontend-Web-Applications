@@ -136,51 +136,34 @@
   }
   },
   "findDesigner": {
-  "title": "Search Designers",
-  "categories": {
-    "graphic": "Graphic Designer",
-    "interior": "Interior Designer",
-    "industrial": "Industrial Designers",
-    "fashion": "Fashion Designers"
-  },
-  "viewProfile": "View Profile",
-  "experience": "Experience",
-  "location": "Location",
-  "description": "Description",
-  "comments": "Comments",
-  "rating": "Rating"
-},
-  "userList": {
-    "title": "View Other Designers",
-    "viewProfile": "View Profile"
-  },
-
-  "findDesigner": {
+    "title": "Discover our designers",
+    "viewProfile": "View Profile",
+    "location": "Location",
+    "experience": "Experience",
+    "rating": "Rating",
+    "description": "About",
+    "comments": "Comments",
+    "technologies": "Technologies",
+    "likes": "Likes",
+    "commentsCount": "Comments",
+    "writeComment": "Write a comment...",
     "categories": {
       "graphic": "Graphic Designer",
       "interior": "Interior Designer",
       "industrial": "Industrial Designer",
       "fashion": "Fashion Designer"
     },
-    "description": {
+    "descriptionDetails": {
       "graphic": "Visual communication expert, mastering typography, color, and layout.",
       "interior": "Transforms interior spaces into functional and aesthetic environments.",
       "industrial": "Creates innovative products that blend functionality and style.",
       "fashion": "Designs clothing and collections that express identity and trends."
     }
   },
-  "findDesigner": {
-    "title": "Discover our designers",
-    "location": "Location",
-    "experience": "Experience",
-    "rating": "Rating",
-    "description": "About",
-    "viewProfile": "View Profile",
-    "comments": "Comments",
-    "technologies": "Technologies",
-    "likes": "Likes",
-    "commentsCount": "Comments",
-    "writeComment": "Write a comment..."
+
+  "userList": {
+    "title": "View Other Designers",
+    "viewProfile": "View Profile"
   }
 
 }
