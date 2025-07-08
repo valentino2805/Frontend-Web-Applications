@@ -1,6 +1,6 @@
 import User from '../model/user.entity.js';
 
-const BASE_URL = 'https://creatilink-api-production-4e2f.up.railway.app/api/v1';
+const BASE_URL = 'https://creatilink-api-production-d54e.up.railway.app/api/v1';
 
 const API_URL = `${BASE_URL}/authentication`;
 const API_URL_USERS = `${BASE_URL}/users`;

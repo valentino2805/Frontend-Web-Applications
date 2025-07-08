@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export async function getProjects(profileId) {
     try {
-        const response = await axios.get(`https://creatilink-api-production-4e2f.up.railway.app/api/v1/projects/by-profile/${profileId}`);
+        const response = await axios.get(`https://creatilink-api-production-d54e.up.railway.app/api/v1/projects/by-profile/${profileId}`);
 
         const profileProjects = response.data.filter(project => project.profileId === profileId);
 

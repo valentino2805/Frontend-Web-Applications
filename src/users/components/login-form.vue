@@ -212,4 +212,63 @@ h2 {
   margin-bottom: 1.5rem;
 }
 
+/* Agrega al final de tu style scoped */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .form-container {
+    max-width: 90%;
+    padding: 1rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .login-button {
+    width: 100%;
+    padding: 0.75rem 0 !important;
+  }
+
+  .social-icons {
+    gap: 1rem;
+    font-size: 1.5rem;
+  }
+}
+
+/* Móvil */
+@media (max-width: 480px) {
+  .form-container {
+    max-width: 100%;
+    padding: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .field {
+    margin-bottom: 0.75rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+
+  .login-button {
+    padding: 0.6rem 0 !important;
+    font-size: 1rem;
+  }
+
+  .social-icons {
+    gap: 0.8rem;
+    font-size: 1.3rem;
+  }
+
+  .remember-me {
+    font-size: 0.9rem;
+    gap: 0.3rem;
+  }
+}
+
 </style>

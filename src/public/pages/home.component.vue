@@ -77,7 +77,7 @@ import 'swiper/css/effect-coverflow';
 import { authService } from "../../users/services/auth.service.js";
 import axios from 'axios';
 
-const API_URL_PROFILES = 'https://creatilink-api-production-4e2f.up.railway.app/api/v1/profiles';
+const API_URL_PROFILES = 'https://creatilink-api-production-d54e.up.railway.app/api/v1/profiles';
 
 
 export default {
@@ -101,7 +101,7 @@ export default {
     this.fetchUsers();
 
 
-    const response = await fetch('https://creatilink-api-production-4e2f.up.railway.app/api/v1/projects');
+    const response = await fetch('https://creatilink-api-production-d54e.up.railway.app/api/v1/projects');
 
     const allProjects = await response.json();
     this.projects = allProjects;
@@ -191,7 +191,8 @@ export default {
   },
   computed: {
     otherUsers() {
-      const filtered = this.allUsers.filter(user => user.id !== this.currentUser.id);
+      const filtered = this.allUsers.filter(user => user.id !== this.currentUser.id)
+          .filter(user => user.role === 'profile');
       console.log("Usuarios que se están mostrando (otherUsers):", filtered);
       return filtered;
     }
@@ -471,6 +472,83 @@ p {
 .view-all-link:hover {
   text-decoration: underline;
 }
+/* Agrega al final de tu style scoped */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .overlay {
+    flex-direction: column;
+    padding: 20px;
+    justify-content: flex-start;
+  }
+
+  .hero-content {
+    max-width: 100%;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .swiper-container {
+    width: 100% !important;
+    height: 300px !important;
+  }
+
+  .slide-img {
+    width: 140px;
+    height: 210px;
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}
+
+/* Móvil */
+@media (max-width: 480px) {
+  .overlay {
+    padding: 10px;
+  }
+
+  .hero-content {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  .swiper-container {
+    height: 220px !important;
+  }
+
+  .slide-img {
+    width: 100px;
+    height: 150px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .user-list-container {
+    padding: 1rem;
+  }
+
+  .card {
+    width: 220px;
+    height: 280px;
+  }
+
+  .card-name {
+    font-size: 1.2rem;
+  }
+}
+
 
 
 </style>

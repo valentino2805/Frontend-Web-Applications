@@ -166,7 +166,7 @@ const saveProfileChanges = async () => {
 
   try {
    // const response = await fetch(`http://localhost:3000/profiles/${editableProfile.value.id}`, {
-    const response = await fetch(`https://creatilink-api-production-4e2f.up.railway.app/api/v1/profiles/${editableProfile.value.id}`, {
+    const response = await fetch(`https://creatilink-api-production-d54e.up.railway.app/api/v1/profiles/${editableProfile.value.id}`, {
 
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -202,7 +202,7 @@ onMounted(async () => {
     profile.value = loadedProfile;
 
     // 🔥 Aquí cargás los proyectos asociados al perfil
-    const res = await fetch(`https://creatilink-api-production-4e2f.up.railway.app/api/v1/projects/by-profile/${loadedProfile.id}`);
+    const res = await fetch(`https://creatilink-api-production-d54e.up.railway.app/api/v1/projects/by-profile/${loadedProfile.id}`);
 
 
 
@@ -223,7 +223,7 @@ const handleCreateProfile = async (newProfile) => {
     console.log('🟡 Datos que se van a enviar al backend:', JSON.stringify(newProfile, null, 2));
 
 
-    const response = await fetch('https://creatilink-api-production-4e2f.up.railway.app/api/v1/profiles', {
+    const response = await fetch('https://creatilink-api-production-d54e.up.railway.app/api/v1/profiles', {
       //const response = await fetch('http://localhost:3000/profiles', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -247,7 +247,7 @@ const handleCreateProfile = async (newProfile) => {
 const updateProfile = async (updatedProfile) => {
   try {
     //const response = await fetch(`http://localhost:3000/profiles/${updatedProfile.id}`, {
-    const response = await fetch(`https://creatilink-api-production-4e2f.up.railway.app/api/v1/profiles/${updatedProfile.id}`, {
+    const response = await fetch(`https://creatilink-api-production-d54e.up.railway.app/api/v1/profiles/${updatedProfile.id}`, {
 
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },

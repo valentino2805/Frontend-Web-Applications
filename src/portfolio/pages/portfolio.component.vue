@@ -140,7 +140,7 @@ const props = defineProps({
 
 const fetchProfileIdByUserId = async (userId) => {
   try {
-    const { data: profile } = await axios.get(`https://creatilink-api-production-4e2f.up.railway.app/api/v1/profiles/by-user`, {
+    const { data: profile } = await axios.get(`https://creatilink-api-production-d54e.up.railway.app/api/v1/profiles/by-user`, {
       params: { userId }
     });
 
@@ -179,7 +179,7 @@ const updateProject = async (updatedProject) => {
   if (index !== -1) projects.value[index] = updatedProject
 
   try {
-    await axios.put(`https://creatilink-api-production-4e2f.up.railway.app/api/v1/projects/${Number(updatedProject.id)}`, updatedProject);
+    await axios.put(`https://creatilink-api-production-d54e.up.railway.app/api/v1/projects/${Number(updatedProject.id)}`, updatedProject);
 
   } catch (error) {
     console.error('Error al guardar cambios:', error)
@@ -202,7 +202,7 @@ const showConfirmDeleteModal = (project) => {
 }
 const confirmDelete = async () => {
   try {
-    await axios.delete(`https://creatilink-api-production-4e2f.up.railway.app/api/v1/projects/${Number(projectToDelete.value.id)}`);
+    await axios.delete(`https://creatilink-api-production-d54e.up.railway.app/api/v1/projects/${Number(projectToDelete.value.id)}`);
 
     projects.value = projects.value.filter(p => p.id !== projectToDelete.value.id);
 
@@ -254,7 +254,7 @@ const saveNewProject = async () => {
 
     console.log('🔍 Enviando proyecto al backend:', projectToAdd); // <-- Log aquí
 
-    const { data: addedProject } = await axios.post('https://creatilink-api-production-4e2f.up.railway.app/api/v1/projects', projectToAdd);
+    const { data: addedProject } = await axios.post('https://creatilink-api-production-d54e.up.railway.app/api/v1/projects', projectToAdd);
     projects.value.push(addedProject);
 
     showAddModal.value = false;

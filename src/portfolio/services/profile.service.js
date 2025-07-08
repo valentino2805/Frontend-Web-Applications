@@ -5,7 +5,7 @@ import axios from 'axios';
 const API_URL_PROFILES = 'http://localhost:3000/profiles';
 const API_URL_PROJECTS = 'http://localhost:3000/projects';*/
 
-const BASE_URL = 'https://creatilink-api-production-4e2f.up.railway.app/api/v1';
+const BASE_URL = 'https://creatilink-api-production-d54e.up.railway.app/api/v1';
 
 const API_URL_PROFILES = `${BASE_URL}/profiles`;
 const API_URL_PROJECTS = `${BASE_URL}/projects`;

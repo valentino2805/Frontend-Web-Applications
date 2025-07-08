@@ -22,7 +22,7 @@
 import { authService } from "../../users/services/auth.service.js";
 import axios from 'axios';
 
-const API_URL_PROFILES = 'https://creatilink-api-production-4e2f.up.railway.app/api/v1/profiles';
+const API_URL_PROFILES = 'https://creatilink-api-production-d54e.up.railway.app/api/v1/profiles';
 
 export default {
   data() {

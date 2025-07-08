@@ -28,7 +28,7 @@
         <select id="role" v-model="user.role" required :class="{'p-invalid': submitted && !user.role}">
           <option disabled value="">{{ t('register.selectRole') || 'Selecciona un rol' }}</option>
           <option value="profile">{{ t('register.roles.profile') || 'Perfil (Diseñador)' }}</option>
-          <option value="client">{{ t('register.roles.client') || 'Cliente' }}</option>
+          <option value="client">{{ t('register.roles.client') || 'Client' }}</option>
         </select>
         <small v-if="submitted && !user.role" class="p-error">Selecciona un rol</small>
       </div>
@@ -96,6 +96,39 @@ async function handleRegister() {
 
 
 <style scoped>
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5"><polygon points="0,0 10,0 5,5" fill="%23333"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px 5px;
+}
+
+select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.4);
+  outline: none;
+}
+
+select:disabled {
+  background-color: #f5f5f5;
+  color: #aaa;
+}
+
+.p-invalid {
+  border-color: #e74c3c !important;
+}
+
 .form-container {
   max-width: 400px;
   margin: auto;
@@ -128,4 +161,37 @@ label{
   color: #000000 !important;
   border: none !important;
 }
+
+@media (max-width: 480px) {
+  .form-container {
+    padding: 1.5rem 1rem;
+    max-width: 100%;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  label {
+    padding-right: 0;
+    font-size: 1rem;
+  }
+
+  select,
+  input,
+  .p-password {
+    font-size: 1rem;
+    padding: 0.75rem 10px;
+  }
+
+  .register-button {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+  }
+}
+
 </style>

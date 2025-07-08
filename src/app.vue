@@ -40,7 +40,7 @@ export default {
 
     const toolbarItems = computed(() => {
       const role = userStore.currentUser?.role
-      if (role === 'cliente') {
+      if (role === 'client') {
         return [
           { labelKey: 'toolbar.home', to: '/home', icon: 'pi pi-home' },
           { labelKey: 'toolbar.findDesigner', to: '/find-designer', icon: 'pi pi-search' },
@@ -50,10 +50,8 @@ export default {
         return [
           { labelKey: 'toolbar.home', to: '/home', icon: 'pi pi-home' },
           { labelKey: 'toolbar.profile', to: `/profile/${userStore.currentUser?.id}`, icon: 'pi pi-user' },
-          { labelKey: 'toolbar.portfolio', to: '/portfolio', icon: 'pi pi-briefcase' },
           { labelKey: 'toolbar.payments', to: '/payments', icon: 'pi pi-credit-card' },
-          { labelKey: 'toolbar.qualifications', to: '/qualifications', icon: 'pi pi-graduation-cap' },
-          { labelKey: 'toolbar.message', to: '/message', icon: 'pi pi-comment' }
+
         ]
       }
       return []
@@ -153,7 +151,7 @@ export default {
             </pv-button>
           </router-link>
         </div>
-        <template v-if="currentUser?.role === 'cliente'">
+        <template v-if="currentUser?.role === 'client'">
           <client-balance-box />
         </template>
         <language-switcher class="language-switcher" />

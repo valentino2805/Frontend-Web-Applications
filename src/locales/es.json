@@ -83,6 +83,12 @@
     "passwordLabel": "Contraseña",
     "button": "Registrarse",
     "successMessage": "¡Registro exitoso! Revisa tu correo.",
+    "roleLabel": "Rol",
+    "selectRole": "Selecciona un rol",
+    "roles": {
+      "profile": "Perfil (Diseñador)",
+      "client": "Cliente"
+    },
     "errors": {
       "nameRequired": "El nombre es obligatorio.",
       "invalidEmail": "Correo inválido.",

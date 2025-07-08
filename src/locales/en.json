@@ -84,6 +84,13 @@
     "emailLabel": "Email",
     "passwordLabel": "Password",
     "button": "Register",
+    "roleLabel": "Role",
+    "selectRole": "Select a role",
+    "roles": {
+      "profile": "Designer",
+      "client": "Client"
+    },
+
     "successMessage": "Registration successful! Check your email.",
     "errors": {
       "nameRequired": "Name is required.",
@@ -92,6 +99,7 @@
       "registrationFailed": "Failed to register user. Please try again."
     }
   },
+
   "auth": {
     "videoNotSupported": "Your browser does not support HTML5 video.",
     "leftPanel": {
