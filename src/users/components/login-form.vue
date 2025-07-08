@@ -30,7 +30,7 @@
 
       <div class="field remember-me">
         <input type="checkbox" id="rememberMe" v-model="rememberMe" />
-        <label for="rememberMe">{{ t('Remember Me') }}</label>
+        <label for="rememberMe">{{ t('Remember M') }}</label>
       </div>
 
       <div class="button-container">
